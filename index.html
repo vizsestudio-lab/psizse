@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>psi.zse</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2c4f93">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: barra lateral fixa + área de trabalho; resumo no topo, detalhe abaixo */
+/* psi.zse: azul, rosa, amarelo e verde sobre creme.
+   Layout: barra lateral com a marca + área de trabalho; total do mês no topo, detalhe abaixo */
+:root{
+  --bg:#fbf7e9; --surface:#fffdf7; --ink:#3d3a34; --muted:#7a7466; --line:#ece4cc;
+  --accent:#2c4f93; --accent-soft:#e4eaf6;
+  --unimed:#2c4f93; --unimed-soft:#e4eaf6; --part:#c34b78; --part-soft:#f8e3eb;
+  --local:#3f8d6c; --local-soft:#e0f0e8; --inter:#2c4f93; --inter-soft:#e4eaf6;
+  --warn:#9a6a00; --warn-soft:#fbefc9; --bad:#b3343c; --bad-soft:#f7e0e1; --good:#3f8d6c;
+  --sun:#f2b53b; --mint:#8ec5aa; --rose:#e0477d;
+  --s-local:#1d9466; --s-inter:#2c4f93; --s-part:#c34b78;
+  --display:"Poppins", "Segoe UI", system-ui, sans-serif;
+  --body:"Poppins", "Segoe UI", system-ui, sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141b2b; --surface:#1c2538; --ink:#f3eee0; --muted:#a8a596; --line:#2d3850;
+    --accent:#8fb0ee; --accent-soft:#25335a;
+    --unimed:#8fb0ee; --unimed-soft:#25335a; --part:#f08cb1; --part-soft:#43263a;
+    --local:#8ed1b1; --local-soft:#1f3a33; --inter:#8fb0ee; --inter-soft:#25335a;
+    --warn:#f2c260; --warn-soft:#3d3218; --bad:#f08a8f; --bad-soft:#432328; --good:#8ed1b1;
+    --sun:#f2b53b; --mint:#8ec5aa; --rose:#e9659a;
+    --s-local:#33a272; --s-inter:#6a93e6; --s-part:#e05a90;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+    --bg:#141b2b; --surface:#1c2538; --ink:#f3eee0; --muted:#a8a596; --line:#2d3850;
+    --accent:#8fb0ee; --accent-soft:#25335a;
+    --unimed:#8fb0ee; --unimed-soft:#25335a; --part:#f08cb1; --part-soft:#43263a;
+    --local:#8ed1b1; --local-soft:#1f3a33; --inter:#8fb0ee; --inter-soft:#25335a;
+    --warn:#f2c260; --warn-soft:#3d3218; --bad:#f08a8f; --bad-soft:#432328; --good:#8ed1b1;
+    --sun:#f2b53b; --mint:#8ec5aa; --rose:#e9659a;
+    --s-local:#33a272; --s-inter:#6a93e6; --s-part:#e05a90;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14.5px;line-height:1.55}
+.app{display:grid;grid-template-columns:220px 1fr;min-height:100%}
+nav{background:var(--surface);border-right:1px solid var(--line);padding:24px 16px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh}
+
+.logo{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:-.02em;line-height:.92;display:block}
+.logo span{display:inline-block}
+.brand small{display:block;font-weight:400;font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.3}
+.c-sun{color:var(--sun)}.c-rose{color:var(--rose)}.c-blue{color:#2c4f93}.c-mint{color:var(--mint)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .c-blue{color:#8fb0ee}}
+:root[data-theme="dark"] .c-blue{color:#8fb0ee}
+nav .shapes{display:flex;gap:8px;padding:0 10px 14px}
+nav a{display:block;padding:9px 14px;border-radius:99px;color:var(--ink);text-decoration:none;font-weight:500}
+nav a:hover{background:var(--bg)}
+nav a.on{background:var(--accent);color:var(--surface)}
+nav .foot{margin-top:auto;font-size:12px;color:var(--muted);padding:0 10px}
+main{padding:28px 32px 60px;max-width:1180px;width:100%}
+h1{font-family:var(--display);font-weight:800;letter-spacing:-.01em;font-size:28px;margin:0 0 4px;text-wrap:balance}
+h2{font-family:var(--display);font-weight:600;font-size:18px;margin:0 0 12px;text-wrap:balance}
+.sub{color:var(--muted);margin:0 0 24px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px}
+.cycle{border-top:4px solid var(--c)}
+.cycle .tag{display:inline-block;font-size:12px;font-weight:600;color:var(--c);background:var(--cs);padding:2px 10px;border-radius:99px}
+.big{font-family:var(--display);font-size:34px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1;margin:10px 0 2px}
+.muted{color:var(--muted)}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.between{justify-content:space-between}
+.bar{height:8px;background:var(--bg);border-radius:99px;overflow:hidden;margin:14px 0 8px}
+.bar i{display:block;height:100%;background:var(--c);border-radius:99px}
+.kv{display:grid;grid-template-columns:1fr auto;gap:6px 16px;font-variant-numeric:tabular-nums}
+.kv .r{text-align:right}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th{text-align:left;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+td.num,th.num{text-align:right}
+tr.total td{font-weight:700;border-bottom:none;font-size:16px}
+tr.minus td{color:var(--muted)}
+.tw{overflow-x:auto}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.good{background:var(--unimed-soft);color:var(--good)}
+.chip.neutral{background:var(--bg);color:var(--muted)}
+.chip.u{background:var(--unimed-soft);color:var(--unimed)}
+.chip.p{background:var(--part-soft);color:var(--part)}
+button,.btn{font:inherit;font-weight:600;font-size:13.5px;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:7px 14px;border-radius:99px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+button.danger{color:var(--bad)}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input,select{font:inherit;font-size:14px;padding:6px 9px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--ink)}
+input[type=number]{width:110px;text-align:right;font-variant-numeric:tabular-nums}
+input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent)}
+.alert{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:12px 16px;font-weight:500;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.alert a{color:inherit;font-weight:700}
+.info{background:var(--accent-soft);color:var(--accent);border-radius:10px;padding:12px 16px;font-size:14px}
+.week{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.day h3{font-size:14px;margin:0 0 10px;display:flex;justify-content:space-between}
+.day.today{outline:2px solid var(--accent)}
+.sess{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.sess .n{font-weight:600}
+.sess .n small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.seg{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end}
+.seg button{padding:3px 8px;font-size:12px;border-radius:6px}
+.seg button.on[data-s=realizada]{background:var(--unimed-soft);border-color:var(--good);color:var(--good)}
+.seg button.on[data-s=falta_cobrada]{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.seg button.on[data-s=falta_avisada],.seg button.on[data-s=cancelada]{background:var(--bg);border-color:var(--muted);color:var(--muted)}
+.pend{border-left:3px solid var(--warn);padding-left:8px}
+.days label{display:inline-flex;flex-direction:column;align-items:center;font-size:11px;color:var(--muted);margin-right:4px}
+.form{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:var(--muted)}
+.cfg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.cfg label{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.diff-ok{color:var(--good);font-weight:600}.diff-bad{color:var(--bad);font-weight:600}
+.chip.l{background:var(--local-soft);color:var(--local)}
+.chip.x{background:var(--inter-soft);color:var(--inter)}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start}
+.hero .big{font-size:48px;color:var(--accent)}
+.stack{display:flex;height:12px;border-radius:99px;overflow:hidden;background:var(--bg);margin:16px 0 10px}
+.stack i{display:block;height:100%}
+.legend{display:grid;gap:8px}
+.legend div{display:grid;grid-template-columns:12px 1fr auto auto;gap:10px;align-items:center;font-variant-numeric:tabular-nums}
+.legend b{width:12px;height:12px;border-radius:3px;display:block}
+.legend .pv{color:var(--muted);font-size:13px;min-width:110px;text-align:right}
+.toggle{display:inline-flex;background:var(--bg);border-radius:8px;padding:3px;gap:2px}
+.toggle button{border:none;background:transparent;padding:5px 12px;font-size:13px}
+.toggle button.on{background:var(--surface);box-shadow:0 1px 2px rgb(0 0 0 / .08)}
+.daystrip{display:grid;grid-template-columns:auto repeat(6,1fr) auto;gap:8px;align-items:stretch;margin-bottom:20px}
+.daybtn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px;border-radius:16px;text-align:center}
+.daybtn .w{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.daybtn .d{font-family:var(--display);font-size:22px;font-weight:800;line-height:1.1}
+.daybtn .c{font-size:12px;color:var(--muted);font-weight:500}
+.daybtn .dot{width:7px;height:7px;border-radius:50%;background:var(--warn)}
+.daybtn .dot.ok{background:var(--good)}
+.daybtn .dot.none{background:transparent}
+.daybtn.sel{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.daybtn.sel .w,.daybtn.sel .c{color:var(--surface);opacity:.85}
+.daybtn.istoday:not(.sel){border-color:var(--accent)}
+.arrow{font-size:20px;padding:0 12px}
+.dayhead{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.dayhead h2{font-size:24px;margin:0}
+.slist{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.scard{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:12px}
+.scard.done{background:var(--cs)}
+.scard .top{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.scard .nm{font-weight:700;font-size:16px}
+.scard .val{font-variant-numeric:tabular-nums;font-weight:600}
+.check{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:10px;border-radius:10px;font-size:15px}
+.check .box{width:20px;height:20px;border:2px solid currentColor;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+.check.on{background:var(--good);border-color:var(--good);color:var(--surface)}
+.others{display:flex;gap:6px;flex-wrap:wrap}
+.others button{font-size:12px;padding:4px 10px;font-weight:500}
+.others button.on[data-s=falta_cobrada]{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.others button.on[data-s=falta_avisada],.others button.on[data-s=cancelada]{background:var(--bg);border-color:var(--muted);color:var(--ink)}
+.empty{padding:40px;text-align:center;color:var(--muted)}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.daystrip{grid-template-columns:repeat(6,1fr)}.daystrip .arrow{display:none}}
+@media (max-width:760px){
+  .app{grid-template-columns:1fr}
+  nav{position:static;height:auto;flex-direction:row;flex-wrap:wrap;padding:12px 16px;border-right:none;border-bottom:1px solid var(--line)}
+  .brand{width:100%;padding:0 0 8px}
+  nav .foot{display:none}
+  main{padding:20px 16px 48px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.today{display:flex;flex-direction:column}
+.trow{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.trow .th{font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;font-size:13px}
+.trow .tn{font-weight:600;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.tdot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.trow.is-ok .tn{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.tfee{display:inline-flex;gap:4px;align-items:center;font-weight:500;font-size:12px;color:var(--muted)}
+.tfee button{padding:2px 8px;font-size:12px;font-weight:500}
+.tfee button.on{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.tfee button.on:last-child{background:var(--bg);border-color:var(--muted);color:var(--ink)}
+.tb{display:flex;gap:6px}
+.tick{width:44px;height:40px;padding:0;border-radius:12px;font-size:18px;line-height:1;color:var(--muted)}
+.tick.on{background:var(--good);border-color:var(--good);color:var(--surface)}
+.tick.no.on{background:var(--bad);border-color:var(--bad);color:var(--surface)}
+.rem{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.rem li{display:grid;grid-template-columns:22px 1fr;gap:8px;padding:10px 12px;border-radius:12px;background:var(--bg);font-size:14px}
+.rem li.warn{background:var(--warn-soft)}
+.rem a{color:var(--ink);text-decoration:none}.rem a:hover{text-decoration:underline}
+.meta{margin:-4px 0 0;display:flex;flex-direction:column;gap:8px}
+.meta .mbar{height:14px}
+.mbar{position:relative;height:10px;background:var(--bg);border-radius:99px;overflow:hidden}
+.mbar i{position:absolute;left:0;top:0;bottom:0;border-radius:99px}
+.mbar .mp{background:var(--accent);opacity:.3}.mbar .mc{background:var(--accent)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px 20px;display:flex;flex-direction:column;gap:2px}
+.tile span{font-size:13px;color:var(--muted);font-weight:600}
+.tile b{font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tile small{font-size:12px;color:var(--muted)}
+.chart{width:100%;min-width:560px;height:auto;display:block}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .base{stroke:var(--muted);stroke-width:1}
+.chart .ax{fill:var(--muted);font-size:11px;font-family:var(--body)}
+.chart .vl{fill:var(--ink);font-size:12px;font-weight:600;font-family:var(--body)}
+.chart .ln{fill:none;stroke:var(--s-inter);stroke-width:2.5;stroke-linejoin:round}
+.chart .ln.dash{stroke-dasharray:6 5}
+.chart .pt{fill:var(--s-inter);stroke:var(--surface);stroke-width:2}
+.chart .pt.open{fill:var(--surface);stroke:var(--s-inter)}
+.chart .metaline{stroke:var(--s-part);stroke-width:1.5;stroke-dasharray:2 4}
+.chart .hit:hover{fill:var(--ink);fill-opacity:.04}
+.legend-inline{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend-inline span{display:inline-flex;align-items:center;gap:6px}
+.legend-inline b{width:12px;height:12px;border-radius:3px;display:inline-block}
+.tip{position:fixed;display:none;z-index:50;background:var(--ink);color:var(--surface);padding:8px 12px;border-radius:10px;font-size:12.5px;line-height:1.5;pointer-events:none;max-width:260px;font-variant-numeric:tabular-nums}
+.fbar{flex:1;height:8px;background:var(--bg);border-radius:99px;overflow:hidden;min-width:80px}
+.fbar i{display:block;height:100%;background:var(--warn);border-radius:99px}.fbar i.hi{background:var(--bad)}
+.rec-top{display:grid;grid-template-columns:1fr 1.2fr;gap:32px;align-items:center;margin-bottom:22px}
+.fall{display:flex;flex-direction:column;gap:8px}
+.frow{display:grid;grid-template-columns:110px 1fr 110px;gap:12px;align-items:center;font-size:13.5px}
+.frow b{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.frow.tot{font-weight:700}.frow.tot b{font-weight:800;font-size:15px}
+.ftrack{height:14px;background:var(--bg);border-radius:99px;overflow:hidden;display:flex}
+.ftrack i{display:block;height:100%;border-radius:99px;min-width:3px}
+.drops{display:flex;align-items:stretch;gap:0}
+.drop{flex:1;display:flex;gap:14px;background:var(--cs);border-radius:18px;padding:16px;border:1px solid transparent}
+.dline{width:22px;align-self:center;border-top:2px dashed var(--line)}
+.dday{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:58px;background:var(--surface);border-radius:14px;padding:8px 6px;border:2px solid var(--c)}
+.dday b{font-size:28px;font-weight:800;line-height:1;color:var(--c)}
+.dday span{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.dbody{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}
+.dval{font-size:24px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.mini{height:6px;background:var(--surface);border-radius:99px;overflow:hidden}
+.mini i{display:block;height:100%;background:var(--c);border-radius:99px}
+@media (max-width:1000px){.rec-top{grid-template-columns:1fr}.drops{flex-direction:column;gap:10px}.dline{display:none}}
+.privbtn{display:flex;align-items:center;gap:8px;margin:0 0 12px;justify-content:center}
+body.priv .privbtn{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+body.priv main input,body.priv main select{filter:blur(5px);pointer-events:none;user-select:none}
+body.priv main h1::after{content:"  · valores ocultos";font-size:13px;font-weight:600;color:var(--muted);letter-spacing:0}
+.brand{display:flex;align-items:center;gap:10px;padding:0 8px 18px}
+.mark{width:38px;height:38px;flex:none}
+.word{font-family:var(--display);font-weight:800;font-size:26px;letter-spacing:-.03em;color:var(--ink);line-height:1}
+.word span{color:var(--accent)}
+.word em{font-style:normal;color:var(--sun)}
+.me{display:flex;align-items:center;gap:10px;padding:10px;margin:0 0 14px;border-radius:14px;background:var(--bg)}
+.av{width:36px;height:36px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.me-t{display:flex;flex-direction:column;min-width:0}.me-t b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.me-t small{font-size:12px;color:var(--muted)}
+.hello{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.hello .wave{display:inline-block;transform-origin:70% 70%;animation:wave 1.6s ease-in-out 1}
+@keyframes wave{0%,60%,100%{transform:rotate(0)}10%,30%{transform:rotate(14deg)}20%,40%{transform:rotate(-8deg)}}
+.auth{position:fixed;inset:0;display:grid;grid-template-columns:1fr 1fr;background:var(--bg);z-index:20;overflow:auto}
+.auth[hidden],.app[hidden]{display:none}
+.auth-art{position:relative;overflow:hidden;background:var(--accent);color:#fff;padding:48px;display:flex;flex-direction:column;justify-content:space-between}
+.auth-art .word{color:#fff;font-size:30px}.auth-art .word span{color:#fff}.auth-art .word em{color:var(--sun)}
+.auth-art .mark rect{fill:#fff}.auth-art .mark path{stroke:var(--accent)}
+.art-brand{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+.art-copy{position:relative;z-index:1;max-width:420px}
+.art-copy h2{font-size:44px;line-height:1.05;font-weight:800;letter-spacing:-.03em;margin:0 0 14px}
+.art-copy p{font-size:16px;opacity:.85;margin:0}
+.art-shapes i{position:absolute;border-radius:50%;opacity:.95}
+.art-shapes .s1{width:260px;height:260px;right:-70px;top:-60px;background:var(--rose);border-radius:40% 60% 55% 45%}
+.art-shapes .s2{width:150px;height:150px;right:110px;top:130px;background:var(--sun);border-radius:30%}
+.art-shapes .s3{width:320px;height:320px;left:-120px;bottom:-150px;background:var(--mint);border-radius:50% 50% 45% 55%}
+.art-shapes .s4{width:90px;height:90px;right:60px;bottom:90px;background:#fff;opacity:.15}
+.auth-main{display:grid;place-items:center;padding:32px 20px}
+.auth-card{width:100%;max-width:380px}
+.auth-card h1{font-size:30px;margin:0 0 4px}
+.auth-card>div>.muted{margin:0 0 24px}
+.auth-brand-sm{display:none;align-items:center;gap:10px;margin-bottom:28px}
+.lform{display:flex;flex-direction:column;gap:14px}
+.lform label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:var(--muted)}
+.lform input{padding:12px 14px;font-size:15px;border-radius:12px}
+.lform .primary{padding:12px;font-size:15px;margin-top:4px}
+.alink{color:var(--accent);font-weight:600;font-size:14px;text-decoration:none}.alink:hover{text-decoration:underline}
+.switch{margin:22px 0 0;font-size:14px;color:var(--muted)}
+.pend-box{text-align:left}
+.pend-ico{font-size:40px;margin-bottom:12px}
+.auth-msg{margin:16px 0 0;font-size:13px;color:var(--bad);min-height:1.2em}
+.savestate{font-size:12px;font-weight:600;color:var(--muted)}.savestate.ok{color:var(--good)}.savestate.bad{color:var(--bad)}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent);margin-left:6px}
+nav a[hidden]{display:none}
+@media (max-width:860px){.auth{grid-template-columns:1fr}.auth-art{display:none}.auth-brand-sm{display:flex}}
+@media (prefers-reduced-motion:reduce){.hello .wave{animation:none}}
+.steps{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px}
+.steps li{line-height:1.5}
+</style>
+</head>
+<body>
+<div id="auth" class="auth">
+  <aside class="auth-art" aria-hidden="true">
+    <div class="art-brand"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="var(--accent)"/><path d="M12 12.5v5.5a8 8 0 0 0 16 0v-5.5" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M20 9v22" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><circle cx="30.5" cy="9.5" r="3.2" fill="var(--sun)"/></svg><span class="word">psi<em>.</em><span>zse</span></span></div>
+    <div class="art-copy"><h2>Seus repasses,<br>sem planilha.</h2><p>Sessões, faltas e pagamentos da clínica em um só lugar.</p></div>
+    <div class="art-shapes"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="s4"></i></div>
+  </aside>
+  <section class="auth-main">
+    <div class="auth-card">
+      <div class="auth-brand-sm"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="var(--accent)"/><path d="M12 12.5v5.5a8 8 0 0 0 16 0v-5.5" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M20 9v22" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><circle cx="30.5" cy="9.5" r="3.2" fill="var(--sun)"/></svg><span class="word">psi<em>.</em><span>zse</span></span></div>
+      <div id="v-login">
+        <h1>Entrar</h1><p class="muted">Acesse com o e-mail cadastrado.</p>
+        <form id="f-login" class="lform">
+          <label for="l-email">E-mail<input id="l-email" type="email" autocomplete="username" placeholder="voce@email.com" required></label>
+          <label for="l-pass">Senha<input id="l-pass" type="password" autocomplete="current-password" required></label>
+          <button class="primary" type="submit">Entrar</button>
+          <a href="#" data-auth="esqueci" class="alink">Esqueci minha senha</a>
+        </form>
+        <p class="switch">Ainda não tem conta? <a href="#" data-auth="cadastro" class="alink">Pedir acesso</a></p>
+      </div>
+      <div id="v-cadastro" hidden>
+        <h1>Pedir acesso</h1><p class="muted">O psi.zse é usado pelas psicólogas da Clínica Imaginare. Seu acesso é liberado depois da aprovação.</p>
+        <form id="f-cadastro" class="lform">
+          <label for="c-nome">Nome<input id="c-nome" type="text" autocomplete="name" placeholder="Como quer ser chamada" required></label>
+          <label for="c-email">E-mail<input id="c-email" type="email" autocomplete="email" required></label>
+          <label for="c-pass">Senha<input id="c-pass" type="password" autocomplete="new-password" minlength="8" placeholder="Mínimo 8 caracteres" required></label>
+          <button class="primary" type="submit">Enviar pedido</button>
+        </form>
+        <p class="switch">Já tem conta? <a href="#" data-auth="login" class="alink">Entrar</a></p>
+      </div>
+      <div id="v-esqueci" hidden>
+        <h1>Recuperar senha</h1><p class="muted">Enviaremos um link para criar uma nova senha.</p>
+        <form id="f-esqueci" class="lform">
+          <label for="e-email">E-mail<input id="e-email" type="email" autocomplete="email" required></label>
+          <button class="primary" type="submit">Enviar link</button>
+        </form>
+        <p class="switch"><a href="#" data-auth="login" class="alink">← Voltar para entrar</a></p>
+      </div>
+      <div id="v-pendente" hidden class="pend-box">
+        <div class="pend-ico" aria-hidden="true">⏳</div>
+        <h1>Aguardando aprovação</h1>
+        <p class="muted">Olá, <b id="pend-nome"></b>! Seu pedido de acesso está aguardando aprovação da administração da clínica. Assim que for aprovado, é só entrar de novo.</p>
+        <p class="switch"><a href="#" data-a2="sair" class="alink">Sair</a></p>
+      </div>
+      <div id="v-enviado" hidden class="pend-box">
+        <div class="pend-ico" aria-hidden="true">✉️</div>
+        <h1>Confira seu e-mail</h1>
+        <p class="muted">Se o e-mail estiver cadastrado, você vai receber um link para criar uma nova senha.</p>
+        <p class="switch"><a href="#" data-auth="login" class="alink">← Voltar para entrar</a></p>
+      </div>
+      <div id="v-confirme" hidden class="pend-box">
+        <div class="pend-ico" aria-hidden="true">📬</div>
+        <h1>Confirme seu e-mail</h1>
+        <p class="muted">Enviamos um link de confirmação para <b id="conf-email"></b>. Depois de confirmar, seu pedido de acesso vai para aprovação da clínica.</p>
+        <p class="switch"><a href="#" data-auth="login" class="alink">← Voltar para entrar</a></p>
+      </div>
+      <div id="v-recusado" hidden class="pend-box">
+        <div class="pend-ico" aria-hidden="true">🔒</div>
+        <h1>Acesso não liberado</h1>
+        <p class="muted">Seu pedido não foi aprovado. Em caso de dúvida, fale com a administração da clínica.</p>
+        <p class="switch"><a href="#" data-a2="sair" class="alink">Sair</a></p>
+      </div>
+      <div id="v-novasenha" hidden>
+        <h1>Nova senha</h1><p class="muted">Escolha a nova senha de acesso.</p>
+        <form id="f-novasenha" class="lform">
+          <label for="n-pass">Nova senha<input id="n-pass" type="password" autocomplete="new-password" minlength="8" required></label>
+          <button class="primary" type="submit">Salvar e entrar</button>
+        </form>
+      </div>
+      <div id="v-carregando" hidden><p class="muted">Carregando…</p></div>
+      <p id="auth-msg" class="auth-msg" role="status"></p>
+    </div>
+  </section>
+</div>
+<div class="app" hidden>
+  <nav aria-label="Seções">
+    <div class="brand"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="12" fill="var(--accent)"/><path d="M12 12.5v5.5a8 8 0 0 0 16 0v-5.5" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><path d="M20 9v22" stroke="#fff" stroke-width="3.6" stroke-linecap="round"/><circle cx="30.5" cy="9.5" r="3.2" fill="var(--sun)"/></svg><span class="word">psi<em>.</em><span>zse</span></span></div>
+    <div class="me"><span class="av" id="me-av"></span><span class="me-t"><b id="me-nome"></b><small id="me-role">Clínica Imaginare</small></span></div>
+    <button id="privbtn" data-a="priv" class="privbtn" aria-pressed="false"></button>
+    <a href="#painel" data-nav="painel">Painel</a>
+    <a href="#agenda" data-nav="agenda">Agenda</a>
+    <a href="#dashboard" data-nav="dashboard">Dashboard</a>
+    <a href="#faltas" data-nav="faltas">Faltas</a>
+    <a href="#pacientes" data-nav="pacientes">Pacientes</a>
+    <a href="#fechamentos" data-nav="fechamentos">Fechamentos</a>
+    <a href="#ajustes" data-nav="ajustes">Ajustes</a>
+    <a href="#acessos" data-nav="acessos" class="admin-only" hidden>Acessos</a>
+    <div class="foot"><div id="savestate" class="savestate"></div><button data-a="sair" style="width:100%;margin-top:10px">Sair</button></div>
+  </nav>
+  <main id="view"></main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script>
+(function(){
+const KEY='repasses-proto-v2';
+const WD=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+const WDL=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+const MESES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const TIPOS={local:'Unimed Local',intercambio:'Unimed Intercâmbio',particular:'Particular'};
+const STATUS={realizada:'Realizada',falta_cobrada:'Falta cobrada',falta_avisada:'Falta não cobrada / avisou',cancelada:'Cancelada'};
+const TCOL={local:['--local','--local-soft','l'],intercambio:['--inter','--inter-soft','x'],particular:['--part','--part-soft','p']};
+
+let PRIV=false;try{PRIV=localStorage.getItem('repasses-priv')==='1'}catch(e){}
+const fmt=v=>PRIV?'R$ •••':v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const nm=p=>PRIV?'Paciente '+String(p.id).padStart(2,'0'):p.nome;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ds=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const pd=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12)};
+const addDays=(s,n)=>{const d=pd(s);d.setDate(d.getDate()+n);return ds(d)};
+const addMonths=(s,n)=>{const d=pd(s);return ds(new Date(d.getFullYear(),d.getMonth()+n,d.getDate(),12))};
+const br=s=>{const d=pd(s);return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')};
+const brY=s=>br(s)+'/'+String(pd(s).getFullYear()).slice(2);
+const TODAY=ds(new Date());
+const tchip=t=>`<span class="chip ${TCOL[t][2]}">${TIPOS[t]}</span>`;
+
+/* ---------- estado ---------- */
+const CLINIC_KEYS=['valorLocal','valorInter','faltaValor','faltaUnimed','faltaPct','repassePct','procs','corteParticular','pagParticular','pagInter','pagLocal'];
+function clinicDefaults(){return{config:{valorLocal:26.81,valorInter:62.25,faltaValor:85,faltaUnimed:50,faltaPct:70,repassePct:70,
+  procs:[{id:'relatorio',nome:'Relatório de acompanhamento',valor:85},{id:'avaliacao',nome:'Avaliação padronizada (por sessão)',valor:250},{id:'aba',nome:'Sessão de Terapia ABA',valor:200},{id:'prompt',nome:'Sessão PROMPT / Integração Sensorial',valor:220},{id:'visita',nome:'Visita escolar ou domiciliar',valor:200},{id:'orientacao',nome:'Orientação / supervisão',valor:200}],
+  corteParticular:10,pagParticular:10,pagInter:15,pagLocal:30},periodos:[]}}
+function userDefaults(){return{config:{impostoPct:6,contador:250,meta:0,inicio:TODAY},patients:[],nextId:1,nextAid:1,status:{},avulsas:[],fech:{}}}
+function seed(){const c=clinicDefaults(),u=userDefaults();return{...u,config:{...c.config,...u.config},periodos:c.periodos}}
+let S;
+S=seed();
+/* ---------- Supabase ---------- */
+const CFG=window.PSIZSE_CONFIG||{};
+const sb=(window.supabase&&CFG.url)?window.supabase.createClient(CFG.url,CFG.anonKey):null;
+let ME=null,PROFILE=null,ADMIN=false;
+const DOC={user:{v:0,last:''},clinic:{v:0,last:''}};
+let saveTimer=null,saving=false,conflito=false;
+function pick(o,keys){const r={};keys.forEach(k=>{if(o[k]!==undefined)r[k]=o[k]});return r}
+function userPayload(){const uc={};Object.keys(S.config).forEach(k=>{if(!CLINIC_KEYS.includes(k))uc[k]=S.config[k]});return{config:uc,patients:S.patients,nextId:S.nextId,nextAid:S.nextAid,status:S.status,avulsas:S.avulsas,fech:S.fech}}
+function clinicPayload(){return{config:pick(S.config,CLINIC_KEYS),periodos:S.periodos}}
+function setSaveState(t,cls){const el=document.getElementById('savestate');if(el){el.textContent=t;el.className='savestate '+(cls||'')}}
+function save(){if(!ME||conflito)return;setSaveState('Salvando…');clearTimeout(saveTimer);saveTimer=setTimeout(flush,600)}
+async function flushOne(kind){
+  const payload=kind==='user'?userPayload():clinicPayload();const json=JSON.stringify(payload);
+  if(json===DOC[kind].last)return true;
+  if(kind==='clinic'&&!ADMIN)return true;
+  const q=kind==='user'?sb.from('estado').update({dados:payload,versao:DOC.user.v+1}).eq('user_id',ME.id).eq('versao',DOC.user.v)
+                       :sb.from('clinica').update({dados:payload,versao:DOC.clinic.v+1,atualizado_por:ME.id}).eq('id',1).eq('versao',DOC.clinic.v);
+  const{data,error}=await q.select('versao');
+  if(error){setSaveState('Erro ao salvar. Verifique a internet.','bad');return false}
+  if(!data||!data.length){conflito=true;setSaveState('Alterado em outro aparelho','bad');showConflict();return false}
+  DOC[kind].v=data[0].versao;DOC[kind].last=json;return true;
+}
+async function flush(){
+  if(saving){clearTimeout(saveTimer);saveTimer=setTimeout(flush,400);return}
+  saving=true;const ok1=await flushOne('user');const ok2=ok1&&await flushOne('clinic');saving=false;
+  if(ok1&&ok2)setSaveState('Tudo salvo ✓','ok');else if(!conflito){clearTimeout(saveTimer);saveTimer=setTimeout(flush,5000)}
+}
+function pendingChanges(){return ME&&S&&(JSON.stringify(userPayload())!==DOC.user.last||(ADMIN&&JSON.stringify(clinicPayload())!==DOC.clinic.last))}
+window.addEventListener('beforeunload',e=>{if(DOC.user.last&&pendingChanges()){e.preventDefault();e.returnValue=''}});
+function showConflict(){const v=document.getElementById('view');if(v&&!document.getElementById('conflict'))v.insertAdjacentHTML('afterbegin','<div class="alert" id="conflict" style="margin-bottom:16px"><span>Os dados foram alterados em outro aparelho ou aba. Recarregue a página para continuar com a versão mais nova.</span><button onclick="location.reload()">Recarregar</button></div>')}
+async function loadAll(){
+  const cr=await sb.from('clinica').select('dados,versao').eq('id',1).maybeSingle();if(cr.error)throw cr.error;
+  const cd=cr.data?cr.data.dados:clinicDefaults();DOC.clinic.v=cr.data?cr.data.versao:0;
+  const ur=await sb.from('estado').select('dados,versao').eq('user_id',ME.id).maybeSingle();if(ur.error)throw ur.error;
+  let ud;if(!ur.data){ud=userDefaults();const ins=await sb.from('estado').insert({user_id:ME.id,dados:ud,versao:1});if(ins.error)throw ins.error;DOC.user.v=1}else{ud=ur.data.dados;DOC.user.v=ur.data.versao}
+  const u0=userDefaults(),c0=clinicDefaults();
+  S={...u0,...ud,config:{...c0.config,...(cd.config||{}),...u0.config,...(ud.config||{})},periodos:cd.periodos||[]};
+  ['patients','avulsas'].forEach(k=>{if(!Array.isArray(S[k]))S[k]=[]});['status','fech'].forEach(k=>{if(!S[k]||typeof S[k]!=='object')S[k]={}});
+  S.nextId=Math.max(S.nextId||1,1,...S.patients.map(p=>p.id+1));S.nextAid=Math.max(S.nextAid||1,1,...S.avulsas.map(a=>a.id+1));
+  DOC.user.last=JSON.stringify(userPayload());DOC.clinic.last=JSON.stringify(clinicPayload());
+}
+let USER={nome:'',email:''};
+function saud(){const h=new Date().getHours();return h<12?'Bom dia':h<18?'Boa tarde':'Boa noite'}
+function resumoHoje(){const l=occurrences(TODAY,TODAY);const f=l.filter(o=>o.status!=='pendente'&&o.status!=='prevista').length;return l.length?`${l.length} ${l.length===1?'sessão':'sessões'} hoje${f?`, ${f} já ${f===1?'marcada':'marcadas'}`:''}`:'nenhuma sessão hoje'}
+function initials(n){return n.split(' ').filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()}
+function showAuth(v,msg){['login','cadastro','esqueci','pendente','enviado','confirme','recusado','novasenha','carregando'].forEach(k=>{const el=document.getElementById('v-'+k);if(el)el.hidden=k!==v});
+  document.getElementById('auth').hidden=false;document.querySelector('.app').hidden=true;
+  const m=document.getElementById('auth-msg');if(m)m.textContent=msg||'';const f=document.querySelector('#v-'+v+' input');if(f)setTimeout(()=>f.focus(),30)}
+async function enterApp(){
+  showAuth('carregando');
+  try{await loadAll()}catch(e){showAuth('login','Não foi possível carregar seus dados: '+(e.message||e));return}
+  initUi();
+  document.getElementById('auth').hidden=true;document.querySelector('.app').hidden=false;
+  document.getElementById('me-nome').textContent=USER.nome||USER.email;document.getElementById('me-av').textContent=initials(USER.nome||USER.email);
+  document.getElementById('me-role').textContent=ADMIN?'Administração · Clínica Imaginare':'Clínica Imaginare';
+  document.querySelectorAll('.admin-only').forEach(el=>el.hidden=!ADMIN);
+  if(!location.hash||!views[location.hash.slice(1)])location.hash='#painel';render();setSaveState('Tudo salvo ✓','ok');
+}
+async function routeSession(session){
+  if(!session){showAuth('login');return}
+  ME=session.user;
+  const{data:prof,error}=await sb.from('profiles').select('nome,email,status,papel').eq('id',ME.id).maybeSingle();
+  if(error||!prof){showAuth('login','Não foi possível ler seu cadastro. Tente novamente.');return}
+  PROFILE=prof;USER={nome:prof.nome||'',email:prof.email};ADMIN=prof.status==='aprovado'&&prof.papel==='admin';
+  if(prof.status==='pendente'){document.getElementById('pend-nome').textContent=(prof.nome||'').split(' ')[0]||prof.email;showAuth('pendente');return}
+  if(prof.status==='recusado'){showAuth('recusado');return}
+  enterApp();
+}
+/* ---------- Acessos (administração) ---------- */
+let ACESSOS=null;
+async function carregarAcessos(){const{data,error}=await sb.from('profiles').select('id,nome,email,status,papel,criado_em').order('criado_em',{ascending:false});ACESSOS=error?{erro:error.message}:data;if(current()==='acessos')render()}
+async function acessoAcao(a,id){
+  const upd=a==='aprovar'?{status:'aprovado'}:a==='recusar'?{status:'recusado',papel:'usuario'}:a==='admin'?{papel:'admin'}:{papel:'usuario'};
+  const{error}=await sb.from('profiles').update(upd).eq('id',id);
+  if(error){alertBox('Não foi possível alterar: '+error.message);return}
+  await carregarAcessos();
+}
+function alertBox(t){const v=document.getElementById('view');v.insertAdjacentHTML('afterbegin','<div class="alert" style="margin-bottom:16px">'+esc(t)+'</div>')}
+function vAcessos(){
+  if(!ADMIN)return '<h1>Acessos</h1><div class="card">Somente a administração vê esta tela.</div>';
+  if(ACESSOS===null){carregarAcessos();return '<h1>Acessos</h1><p class="muted">Carregando…</p>'}
+  if(ACESSOS.erro)return `<h1>Acessos</h1><div class="alert">${esc(ACESSOS.erro)}</div>`;
+  const pend=ACESSOS.filter(p=>p.status==='pendente'),out=ACESSOS.filter(p=>p.status!=='pendente');
+  const row=p=>`<tr><td><b>${esc(p.nome||'—')}</b>${p.papel==='admin'&&p.status==='aprovado'?'<span class="badge">admin</span>':''}<br><span class="muted" style="font-size:13px">${esc(p.email)}</span></td>
+    <td>${p.status==='pendente'?'<span class="chip warn">Aguardando</span>':p.status==='aprovado'?'<span class="chip good">Aprovada</span>':'<span class="chip bad">Recusada</span>'}</td>
+    <td class="muted" style="font-size:13px">${new Date(p.criado_em).toLocaleDateString('pt-BR')}</td>
+    <td><div class="row" style="gap:6px;justify-content:flex-end">${p.id===ME.id?'<span class="muted" style="font-size:13px">você</span>':
+      (p.status!=='aprovado'?`<button class="primary" data-a="aprovar" data-id="${p.id}">Aprovar</button>`:'')+
+      (p.status!=='recusado'?`<button class="danger" data-a="recusar" data-id="${p.id}">${p.status==='aprovado'?'Bloquear':'Recusar'}</button>`:'')+
+      (p.status==='aprovado'?(p.papel==='admin'?`<button data-a="usuario" data-id="${p.id}">Tirar admin</button>`:`<button data-a="admin" data-id="${p.id}">Tornar admin</button>`):'')}</div></td></tr>`;
+  return `<h1>Acessos</h1>
+  <p class="sub">Pedidos de acesso ao psi.zse. A administração aprova quem é da clínica. Cada psicóloga vê apenas os próprios pacientes.</p>
+  <div class="card tw" style="padding:8px 12px;margin-bottom:16px"><h2 style="margin:12px 10px">Aguardando aprovação ${pend.length?`<span class="chip warn">${pend.length}</span>`:''}</h2>
+    ${pend.length?`<table><tbody>${pend.map(row).join('')}</tbody></table>`:'<p class="muted" style="padding:0 10px 12px">Nenhum pedido novo.</p>'}</div>
+  <div class="card tw" style="padding:8px 12px"><h2 style="margin:12px 10px">Contas</h2><table><tbody>${out.map(row).join('')}</tbody></table></div>
+  <button data-a="recarregar-acessos" style="margin-top:12px">Atualizar lista</button>`;
+}
+function dataIni(){let d=S.config.inicio||TODAY;S.avulsas.forEach(a=>{if(a.date<d)d=a.date});return d}
+const pat=id=>S.patients.find(p=>p.id===id);
+const grupo=p=>p.tipo==='particular'?'particular':'unimed';
+
+/* ---------- períodos ---------- */
+function payOn(mes,day){const[y,m]=mes.split('-').map(Number);const last=new Date(y,m,0).getDate();return ds(new Date(y,m-1,Math.min(+day,last),12))}
+const nextMes=mes=>{const[y,m]=mes.split('-').map(Number);const d=new Date(y,m,1,12);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')};
+function uPeriods(){
+  const ps=[...S.periodos].filter(p=>p.ini&&p.fim&&p.mes).sort((a,b)=>a.ini.localeCompare(b.ini));
+  const mkP=(start,end,mes,est)=>({g:'unimed',tipos:['local','intercambio'],start,end,mes,est,pagI:payOn(mes,S.config.pagInter),pagL:payOn(mes,S.config.pagLocal),pag:payOn(mes,Math.min(S.config.pagInter,S.config.pagLocal))});
+  const out=ps.map(p=>mkP(p.ini,p.fim,p.mes,false));
+  let last=out[out.length-1];
+  while(last&&last.end<addDays(TODAY,200)){const s=addDays(last.end,1);last=mkP(s,addDays(s,27),nextMes(last.mes),true);out.push(last)}
+  return out;
+}
+const unimedPayTxt=c=>{const a=[['intercambio',c.pagI],['local',c.pagL]].sort((x,y)=>x[1].localeCompare(y[1]));return a.map(([t,d])=>`${br(d)} (${t==='local'?'Local':'Interc.'})`).join(' e ')};
+function pCycleEnding(y,m){const c=+S.config.corteParticular;const e=new Date(y,m,c,12),s=new Date(y,m-1,c+1,12);
+  return{g:'particular',tipos:['particular'],start:ds(s),end:ds(e),pag:ds(new Date(e.getFullYear(),e.getMonth(),+S.config.pagParticular,12)),est:false}}
+function cycleContaining(g,s){
+  if(g==='unimed')return uPeriods().find(p=>p.start<=s&&s<=p.end)||null;
+  const d=pd(s);let m=d.getMonth();if(d.getDate()>+S.config.corteParticular)m++;return pCycleEnding(d.getFullYear(),m);
+}
+function prevCycle(c){if(c.g==='particular'){const e=pd(c.end);return pCycleEnding(e.getFullYear(),e.getMonth()-1)}
+  const ps=uPeriods();const i=ps.findIndex(p=>p.start===c.start);return i>0?ps[i-1]:null}
+const inMonth=(s,y,m)=>{const d=pd(s);return d.getFullYear()===y&&d.getMonth()===m};
+
+/* ---------- sessões ---------- */
+function occurrences(start,end){
+  const out=[];
+  for(let s=start;s<=end;s=addDays(s,1)){
+    if(s<S.config.inicio)continue;
+    const wd=pd(s).getDay();
+    for(const p of S.patients){if(!p.ativo)continue;for(const sl of p.slots){if(sl.d===wd)out.push(mk(p.id,s,sl.h,null))}}
+  }
+  for(const a of S.avulsas){if(a.date>=start&&a.date<=end&&pat(a.pid))out.push(mk(a.pid,a.date,a.h||'',a.id,a.orig,a.proc))}
+  return out.sort((a,b)=>a.date.localeCompare(b.date)||a.h.localeCompare(b.h));
+}
+function mk(pid,date,h,aid,orig,proc){
+  const key=aid?'a:'+aid:pid+'|'+date+'|'+h;
+  return{key,pid,date,h,proc:proc||'',avulsa:!!aid&&orig!=='agenda',imp:orig==='agenda',aid,status:S.status[key]||(date<=TODAY?'pendente':'prevista')};
+}
+const faltaLiq=o=>((o&&o.pid&&pat(o.pid)&&pat(o.pid).tipo!=='particular')?S.config.faltaUnimed:S.config.faltaValor)*S.config.faltaPct/100;
+const procOf=id=>(S.config.procs||[]).find(x=>x.id===id);
+const procLiq=id=>{const x=procOf(id);return x?x.valor*S.config.repassePct/100:0};
+const tipoOf=o=>(o.proc||o.status==='falta_cobrada')?'particular':pat(o.pid).tipo;
+const valorCheio=o=>o.proc?procLiq(o.proc):pat(o.pid).valor;
+function valorConf(o){if(o.status==='realizada')return valorCheio(o);if(o.status==='falta_cobrada')return faltaLiq(o);return 0}
+function valorPrev(o){return(o.status==='pendente'||o.status==='prevista')?valorCheio(o):valorConf(o)}
+const EMPTY={os:[],conf:0,prev:0,pend:0,futuras:0,real:0,faltasC:0,faltasA:0};
+function cycleStats(c){
+  if(!c)return{...EMPTY};
+  const os=occurrences(c.start,c.end).filter(o=>c.tipos.includes(tipoOf(o)));
+  const st={...EMPTY,os};
+  os.forEach(o=>{st.conf+=valorConf(o);st.prev+=valorPrev(o);
+    if(o.status==='pendente')st.pend++;else if(o.status==='prevista')st.futuras++;
+    else if(o.status==='realizada')st.real++;else if(o.status==='falta_cobrada')st.faltasC++;else st.faltasA++;});
+  return st;
+}
+function byTipo(os){
+  const r={local:{conf:0,prev:0,n:0},intercambio:{conf:0,prev:0,n:0},particular:{conf:0,prev:0,n:0}};
+  os.forEach(o=>{const t=tipoOf(o);r[t].conf+=valorConf(o);r[t].prev+=valorPrev(o);if(o.status!=='falta_avisada'&&o.status!=='cancelada')r[t].n++});
+  return r;
+}
+function monthSummary(y,m){
+  const mesK=y+'-'+String(m+1).padStart(2,'0');const uc=uPeriods().find(p=>p.mes===mesK)||null;
+  const pc=pCycleEnding(y,m);
+  const u=cycleStats(uc),p=cycleStats(pc);
+  const t=k=>{const bruto=u[k]+p[k];const imp=bruto*S.config.impostoPct/100;return{bruto,imp,liq:bruto-imp-Number(S.config.contador)}};
+  return{uc,pc,u,p,conf:t('conf'),prev:t('prev')};
+}
+function countPend(){return occurrences(addDays(TODAY,-90),TODAY).filter(o=>o.status==='pendente').length}
+function mondayOf(s){const d=pd(s);const wd=d.getDay()||7;d.setDate(d.getDate()-(wd-1));return ds(d)}
+
+/* ---------- estado de tela ---------- */
+let ui={};
+function initUi(){const cu0=cycleContaining('unimed',TODAY);const m0=cu0?pd(cu0.pag):pd(TODAY);
+ui={monthY:m0.getFullYear(),monthM:m0.getMonth(),daySel:(pd(TODAY).getDay()===0?addDays(TODAY,1):TODAY),filtro:'todos',confirmReset:false};}
+
+/* ---------- telas ---------- */
+function vPainel(){
+  const cu=cycleContaining('unimed',TODAY),cp=cycleContaining('particular',TODAY);
+  const su=cycleStats(cu),sp=cycleStats(cp);
+  const ms=monthSummary(ui.monthY,ui.monthM);
+  const bt=byTipo([...ms.u.os,...ms.p.os]);
+  const pendTotal=countPend();
+  const padrao=S.patients.filter(p=>p.ativo).reduce((a,p)=>a+p.valor*(p.ref||0),0);
+  const pImp=padrao*S.config.impostoPct/100;
+  const d=pd(TODAY);
+  const totPrev=ms.prev.bruto||1;
+  const pctConf=ms.prev.liq>0?Math.max(0,Math.min(100,ms.conf.liq/ms.prev.liq*100)):0;
+  const uTxt=ms.uc?`Unimed pelas sessões de ${br(ms.uc.start)} a ${br(ms.uc.end)}${ms.uc.est?' (período estimado)':''}, em ${unimedPayTxt(ms.uc)}`:'sem período da Unimed pago neste mês';
+  const payD={intercambio:ms.uc&&ms.uc.pagI,local:ms.uc&&ms.uc.pagL,particular:ms.pc.pag};
+  const ordem=['local','intercambio','particular'].sort((a,b)=>(payD[a]||'9').localeCompare(payD[b]||'9'));
+  return `
+  <h1 class="hello">${saud()}, ${esc(USER.nome.split(' ')[0])}! <span class="wave" aria-hidden="true">👋</span></h1>
+  <p class="sub">${WDL[d.getDay()]}, ${d.getDate()} de ${MESES[d.getMonth()]} · ${resumoHoje()}</p>
+  ${S.patients.length?'':`<div class="card welcome" style="margin-bottom:16px"><h2>Bem-vinda ao psi.zse! 🎉</h2>
+    <p class="muted" style="margin:-4px 0 14px">Sua conta começa vazia. Em três passos o painel começa a calcular seus repasses:</p>
+    <ol class="steps"><li><b>Cadastre seus pacientes</b> com tipo (Unimed Local, Intercâmbio ou Particular) e os horários fixos da semana. <a href="#pacientes" class="alink">Ir para Pacientes →</a></li>
+    <li><b>Confira seus custos</b>: DAS, contador e sua meta mensal. <a href="#ajustes" class="alink">Ir para Ajustes →</a></li>
+    <li><b>Marque as sessões</b> todo dia aqui no Painel, com um toque: ✓ veio ou ✕ faltou.</li></ol></div>`}
+  <div class="grid g2" style="margin-bottom:16px;align-items:start">${hojeCard()}${lembretesCard()}</div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="row between" style="margin-bottom:4px"><h2 style="margin:0">Recebimentos de ${MESES[ui.monthM]}/${ui.monthY}</h2>
+      <div class="row"><button data-a="mes" data-d="-1" aria-label="Mês anterior">‹</button><button data-a="mes" data-d="1" aria-label="Próximo mês">›</button></div></div>
+    <p class="muted" style="margin:0 0 18px;font-size:13px">${uTxt}; Particular pelas sessões de ${br(ms.pc.start)} a ${br(ms.pc.end)}.</p>
+    <div class="rec-top">
+      <div>
+        <div class="muted" style="font-weight:600">Líquido previsto no mês</div>
+        <div class="big" style="font-size:52px;color:var(--accent)">${fmt(ms.prev.liq)}</div>
+        <div class="muted">${ms.conf.bruto?fmt(ms.conf.liq)+' já confirmado':'Nenhuma sessão confirmada ainda'}</div>
+      </div>
+      ${(()=>{const B=ms.prev.bruto||1;const w=v=>Math.max(0,v/B*100).toFixed(2);
+        const rows=[['Repasse bruto',ms.prev.bruto,'var(--accent)',0],['DAS '+S.config.impostoPct+'%',ms.prev.imp,'var(--bad)',ms.prev.bruto-ms.prev.imp],['Contador',+S.config.contador,'var(--warn)',ms.prev.bruto-ms.prev.imp-S.config.contador],['Líquido',ms.prev.liq,'var(--good)',0]];
+        return `<div class="fall" aria-label="Do bruto ao líquido">${rows.map(([l,v,c,off],i)=>`<div class="frow ${i===3?'tot':''}"><span>${l}</span><div class="ftrack"><i style="margin-left:${i===1||i===2?w(off):0}%;width:${w(v)}%;background:${c}"></i></div><b>${i===1||i===2?'− ':''}${fmt(v)}</b></div>`).join('')}
+          <p class="muted" style="font-size:12px;margin:6px 0 0">Do bruto ao líquido (previsto). Guardar ${fmt(ms.prev.imp)} para o DAS.</p></div>`})()}
+    </div>
+    <div class="drops">
+      ${ordem.map(t=>{const d=payD[t];const v=bt[t];const pct=v.prev?Math.min(100,v.conf/v.prev*100):0;const dd=d?pd(d):null;const past=d&&d<=TODAY;
+        return `<div class="drop" style="--c:var(${['--s-local','--s-inter','--s-part'][['local','intercambio','particular'].indexOf(t)]});--cs:var(${TCOL[t][1]})">
+          <div class="dday">${dd?`<b>${dd.getDate()}</b><span>${MS[dd.getMonth()]}</span>`:'<b>—</b>'}</div>
+          <div class="dbody">
+            <div class="row between" style="gap:6px">${tchip(t)}${past?'<span class="chip good">caiu</span>':d?`<span class="muted" style="font-size:12px">em ${Math.round((pd(d)-pd(TODAY))/864e5)} dias</span>`:''}</div>
+            <div class="dval">${fmt(v.prev)}</div>
+            <div class="mini"><i style="width:${pct.toFixed(1)}%"></i></div>
+            <div class="muted" style="font-size:12px">${fmt(v.conf)} confirmado · ${v.n} sessões</div>
+          </div></div>`}).join('<div class="dline" aria-hidden="true"></div>')}
+    </div>
+  </div>
+  ${metaBlock(ms)}
+  <h2 style="margin-top:24px">Períodos em andamento</h2>
+  <div class="grid g2">
+    ${cu?cycleCard('Unimed',cu,su,'--unimed','--unimed-soft'):'<div class="card">Nenhum período da Unimed cadastrado para hoje. Adicione em Ajustes.</div>'}
+    ${cycleCard('Particular',cp,sp,'--part','--part-soft')}
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>Mês padrão (referência)</h2>
+    <p class="muted" style="margin-top:-6px;font-size:13px">4 sessões por horário fixo de cada paciente. O valor real de cada período depende de quantas semanas ele tem; os números acima já consideram isso.</p>
+    <div class="kv" style="max-width:520px">
+      ${['local','intercambio','particular'].map(t=>{const ps=S.patients.filter(p=>p.ativo&&p.tipo===t&&p.ref);const n=ps.reduce((a,p)=>a+p.ref,0);const v=ps.reduce((a,p)=>a+p.valor*p.ref,0);return `<span>${tchip(t)} <span class="muted">${n} sessões</span></span><span class="r">${fmt(v)}</span>`}).join('')}
+      <span style="border-top:1px solid var(--line);padding-top:6px">Repasse bruto</span><span class="r" style="border-top:1px solid var(--line);padding-top:6px">${fmt(padrao)}</span>
+      <span class="muted">DAS ${S.config.impostoPct}%</span><span class="r muted">− ${fmt(pImp)}</span>
+      <span class="muted">Contador</span><span class="r muted">− ${fmt(+S.config.contador)}</span>
+      <strong>Líquido</strong><strong class="r">${fmt(padrao-pImp-S.config.contador)}</strong>
+    </div>
+  </div>`;
+}
+function cycleCard(nome,c,st,col,soft){
+  const restam=Math.max(0,Math.round((pd(c.end)-pd(TODAY))/864e5));
+  const pct=st.prev?Math.min(100,st.conf/st.prev*100):0;
+  const bt=byTipo(st.os);
+  const tipos=c.g==='unimed'?['local','intercambio']:['particular'];
+  return `<div class="card cycle" style="--c:var(${col});--cs:var(${soft})">
+    <div class="row between"><span class="tag">${nome}</span><span class="muted" style="font-size:13px">${br(c.start)} a ${br(c.end)} · ${restam?`fecha em ${restam} dia${restam>1?'s':''}`:'fecha hoje'} · paga ${c.g==='unimed'?unimedPayTxt(c):br(c.pag)}${c.est?' (est.)':''}</span></div>
+    <div class="big">${fmt(st.conf)}</div>
+    <div class="muted">confirmado até agora · previsto ${fmt(st.prev)}</div>
+    <div class="bar"><i style="width:${pct.toFixed(1)}%"></i></div>
+    ${tipos.length>1?`<div class="kv" style="margin:6px 0 12px;font-size:14px">${tipos.map(t=>`<span>${tchip(t)} <span class="muted">${bt[t].n} sessões</span></span><span class="r">${fmt(bt[t].conf)} <span class="muted">/ ${fmt(bt[t].prev)}</span></span>`).join('')}</div>`:''}
+    <div class="row" style="gap:6px">
+      <span class="chip good">${st.real} realizadas</span>
+      ${st.pend?`<span class="chip warn">${st.pend} a confirmar</span>`:''}
+      <span class="chip neutral">${st.futuras} por vir</span>
+      ${st.faltasC?`<span class="chip bad">${st.faltasC} falta${st.faltasC>1?'s':''} cobrada${st.faltasC>1?'s':''}</span>`:''}
+      ${st.faltasA?`<span class="chip neutral">${st.faltasA} não contam</span>`:''}
+    </div>
+  </div>`;
+}
+function vAgenda(){
+  const sel=ui.daySel,ws=mondayOf(sel),we=addDays(ws,5);
+  const wos=occurrences(ws,we);
+  let strip=`<button class="arrow" data-a="wk" data-d="-7" aria-label="Semana anterior">‹</button>`;
+  for(let i=0;i<6;i++){
+    const d=addDays(ws,i),l=wos.filter(o=>o.date===d);
+    const pend=l.filter(o=>o.status==='pendente').length;
+    const dot=!l.length||l.every(o=>o.status==='prevista')?'none':pend?'':'ok';
+    strip+=`<button class="daybtn ${d===sel?'sel':''} ${d===TODAY?'istoday':''}" data-a="day" data-d="${d}" aria-pressed="${d===sel}">
+      <span class="w">${WD[pd(d).getDay()]}</span><span class="d">${pd(d).getDate()}</span><span class="c">${l.length} sess.</span><span class="dot ${dot}" title="${pend?pend+' a confirmar':''}"></span></button>`;
+  }
+  strip+=`<button class="arrow" data-a="wk" data-d="7" aria-label="Próxima semana">›</button>`;
+  const list=occurrences(sel,sel);
+  const pend=list.filter(o=>o.status==='pendente').length;
+  const conf=list.reduce((a,o)=>a+valorConf(o),0),prev=list.reduce((a,o)=>a+valorPrev(o),0);
+  const fut=sel>TODAY,dd=pd(sel);
+  const ativos=S.patients.filter(p=>p.ativo).sort((a,b)=>a.nome.localeCompare(b.nome));
+  return `<h1>Agenda</h1>
+  <p class="sub">Escolha o dia e marque quem foi atendido. Na agenda da clínica: verde e lilás contam, branco não conta e vermelho (falta) fica a confirmar, porque nem sempre é cobrada. Falta cobrada soma ${fmt(S.config.faltaUnimed*S.config.faltaPct/100)} (Unimed) ou ${fmt(S.config.faltaValor*S.config.faltaPct/100)} (Particular).</p>
+  <div class="daystrip">${strip}</div>
+  <div class="dayhead">
+    <div><h2>${WDL[dd.getDay()]}, ${dd.getDate()} de ${MESES[dd.getMonth()]}${sel===TODAY?' · hoje':''}</h2>
+      <div class="row" style="gap:6px;margin-top:6px"><span class="chip neutral">${list.length} sessões</span>${pend?`<span class="chip warn">${pend} a confirmar</span>`:''}<span class="chip good">${fmt(conf)} confirmado</span>${prev!==conf?`<span class="chip neutral">${fmt(prev)} previsto</span>`:''}</div></div>
+    <div class="row">
+      <button data-a="dstep" data-d="-1">‹ Dia anterior</button><button data-a="dstep" data-d="1">Próximo dia ›</button>
+      ${sel!==TODAY?'<button data-a="day" data-d="'+TODAY+'">Hoje</button>':''}
+      ${pend?`<button class="primary" data-a="allreal" data-ws="${sel}" data-we="${sel}">Marcar as ${pend} como realizadas</button>`:''}
+    </div>
+  </div>
+  ${list.length?`<div class="slist">${list.map(o=>{const p=pat(o.pid);const[c,cs]=TCOL[p.tipo];const done=o.status==='realizada';
+    return `<div class="scard ${done?'done':''}" style="--c:var(${c});--cs:var(${cs})">
+      <div class="top"><div><div class="muted" style="font-size:13px;font-weight:600">${o.h||'sem horário'}</div><div class="nm">${esc(nm(p))}</div><div style="margin-top:4px">${tchip(p.tipo)}${o.proc?' <span class="chip p">'+esc(procOf(o.proc)?procOf(o.proc).nome:'Procedimento')+'</span>':''}${o.avulsa&&!o.proc?' <span class="chip neutral">avulsa</span>':''}${o.imp?' <span class="chip neutral">da agenda da clínica</span>':''}${o.status==='pendente'?' <span class="chip warn">a confirmar</span>':''}</div></div>
+        <div class="val">${fmt(o.status==='falta_cobrada'?faltaLiq(o):valorCheio(o))}</div></div>
+      <button class="check ${done?'on':''}" data-a="st" data-k="${o.key}" data-s="realizada" ${fut?'disabled title="Sessão futura"':''} aria-pressed="${done}"><span class="box">${done?'✓':''}</span>${done?'Realizada':'Marcar como realizada'}</button>
+      <div class="others">
+        <button data-a="st" data-k="${o.key}" data-s="falta_cobrada" class="${o.status==='falta_cobrada'?'on':''}" ${fut?'disabled':''}>Falta cobrada (+${fmt(faltaLiq(o))})</button>
+        <button data-a="st" data-k="${o.key}" data-s="falta_avisada" class="${o.status==='falta_avisada'?'on':''}">Falta não cobrada / avisou</button>
+        <button data-a="st" data-k="${o.key}" data-s="cancelada" class="${o.status==='cancelada'?'on':''}">Cancelada</button>
+        ${o.aid?`<button data-a="delav" data-id="${o.aid}">Remover</button>`:''}
+      </div></div>`}).join('')}</div>`:`<div class="card empty">Nenhuma sessão neste dia.</div>`}
+  <div class="card" style="margin-top:20px">
+    <h2>Lançar atendimento extra</h2>
+    <p class="muted" style="margin-top:-6px;font-size:13px">Reposição, relatório, avaliação, visita ou orientação. Procedimentos da tabela entram no fechamento Particular com ${S.config.repassePct}% do valor.</p>
+    <form class="form" id="fav">
+      <label for="av-p">Paciente<select id="av-p">${ativos.map(p=>`<option value="${p.id}">${esc(nm(p))} (${TIPOS[p.tipo]})</option>`).join('')}</select></label>
+      <label for="av-x">Atendimento<select id="av-x"><option value="">Sessão normal (valor do paciente)</option>${S.config.procs.map(x=>`<option value="${x.id}">${esc(x.nome)} · ${fmt(x.valor*S.config.repassePct/100)}</option>`).join('')}</select></label>
+      <label for="av-d">Data<input type="date" id="av-d" value="${sel}"></label>
+      <label for="av-h">Horário<input type="time" id="av-h" value="08:30"></label>
+      <label for="av-s">Situação<select id="av-s"><option value="">A confirmar</option>${Object.keys(STATUS).map(s=>`<option value="${s}">${STATUS[s]}</option>`).join('')}</select></label>
+      <button class="primary" type="submit">Lançar</button>
+    </form>
+  </div>`;
+}
+function vPacientes(){
+  const f=ui.filtro;
+  const list=S.patients.filter(p=>f==='todos'||p.tipo===f||(f==='confirmar'&&p.confirmar)).sort((a,b)=>(b.ativo-a.ativo)||a.tipo.localeCompare(b.tipo)||a.nome.localeCompare(b.nome));
+  const ativos=S.patients.filter(p=>p.ativo);const nconf=S.patients.filter(p=>p.confirmar).length;
+  return `<h1>Pacientes</h1>
+  <p class="sub">${ativos.length} ativos · ${ativos.filter(p=>p.slots.length).length} com horário fixo</p>
+  ${nconf?`<div class="alert" style="margin-bottom:16px"><span>${nconf} pacientes novos estão com tipo e valor a confirmar.</span><button data-a="filtro" data-f="confirmar">Ver quais</button></div>`:''}
+  <div class="row between" style="margin-bottom:12px">
+    <div class="row">${['todos','local','intercambio','particular'].map(t=>`<button data-a="filtro" data-f="${t}" class="${f===t?'primary':''}">${t==='todos'?'Todos':TIPOS[t]}</button>`).join('')}</div>
+    <button data-a="addp">+ Adicionar paciente</button>
+  </div>
+  <div class="card tw" style="padding:8px 12px"><table>
+    <thead><tr><th>Nome</th><th>Tipo</th><th class="num">Valor por sessão</th><th>Horários fixos</th><th>Ativo</th><th></th></tr></thead>
+    <tbody>${list.map(p=>`<tr>
+      <td><input id="pn-${p.id}" data-pf="nome" data-id="${p.id}" value="${esc(nm(p))}" aria-label="Nome" style="min-width:220px">${p.confirmar?'<br><span class="chip warn" style="margin-top:4px">tipo e valor a confirmar</span>':''}</td>
+      <td><select id="pt-${p.id}" data-pf="tipo" data-id="${p.id}" aria-label="Tipo">${Object.keys(TIPOS).map(t=>`<option value="${t}" ${p.tipo===t?'selected':''}>${TIPOS[t]}</option>`).join('')}</select></td>
+      <td class="num"><input id="pv-${p.id}" type="number" step="0.01" min="0" data-pf="valor" data-id="${p.id}" value="${p.valor}" aria-label="Valor"></td>
+      <td><div class="row" style="gap:6px">${p.slots.map((s,i)=>`<span class="chip neutral">${WD[s.d]} ${s.h} <button data-a="delslot" data-id="${p.id}" data-i="${i}" aria-label="Remover horário" style="border:none;background:none;padding:0 0 0 2px;font-size:12px">✕</button></span>`).join('')||'<span class="muted" style="font-size:13px">avulso</span>'}
+        <select id="sd-${p.id}" aria-label="Dia" style="padding:3px 6px">${[1,2,3,4,5,6].map(w=>`<option value="${w}">${WD[w]}</option>`).join('')}</select><input type="time" id="sh-${p.id}" value="08:30" aria-label="Horário" style="padding:3px 6px"><button data-a="addslot" data-id="${p.id}" style="padding:3px 10px">+</button></div></td>
+      <td><input type="checkbox" id="pa-${p.id}" data-pf="ativo" data-id="${p.id}" ${p.ativo?'checked':''} aria-label="Ativo"></td>
+      <td><button class="danger" data-a="delp" data-id="${p.id}" aria-label="Excluir ${esc(nm(p))}">Excluir</button></td>
+    </tr>`).join('')}</tbody></table></div>`;
+}
+function vFech(){
+  const rows=[];
+  const ps=uPeriods().filter(p=>p.start<=TODAY).slice(-4);
+  ps.forEach(p=>{rows.push({...p,g:'intercambio',tipos:['intercambio'],pag:p.pagI});rows.push({...p,g:'local',tipos:['local'],pag:p.pagL})});
+  let c=cycleContaining('particular',TODAY);for(let i=0;i<4&&c.end>=dataIni();i++){rows.push(c);c=prevCycle(c)}
+  rows.sort((a,b)=>b.pag.localeCompare(a.pag));
+  return `<h1>Fechamentos</h1>
+  <p class="sub">Digite quanto a clínica pagou para conferir com o calculado.</p>
+  <div class="card tw" style="padding:8px 12px"><table>
+    <thead><tr><th>Tipo</th><th>Sessões de</th><th>Pagamento</th><th class="num">Sessões</th><th class="num">Calculado</th><th class="num">Recebido</th><th class="num">Diferença</th><th>Situação</th></tr></thead>
+    <tbody>${rows.map(c=>{const st=cycleStats(c);const k=c.g+c.end;const f=S.fech[k]||{};const aberto=c.end>=TODAY;
+      const rec=f.recebido===undefined||f.recebido===''?null:Number(f.recebido);const dif=rec===null?null:rec-st.conf;
+      const sit=aberto?'<span class="chip neutral">Em andamento</span>':st.pend?`<span class="chip warn">${st.pend} a confirmar</span>`:rec===null?'<span class="chip warn">Aguardando pagamento</span>':Math.abs(dif)<0.01?'<span class="chip good">Conferido</span>':'<span class="chip bad">Divergente</span>';
+      return `<tr>
+      <td>${tchip(c.tipos[0])}</td>
+      <td>${br(c.start)} a ${br(c.end)}</td>
+      <td>${brY(c.pag)}${c.est?' <span class="muted">(est.)</span>':''}</td>
+      <td class="num">${st.real+st.faltasC}${st.pend?` <span class="muted">+${st.pend}</span>`:''}</td>
+      <td class="num">${fmt(st.conf)}${aberto?`<br><span class="muted" style="font-size:12px">prev. ${fmt(st.prev)}</span>`:''}</td>
+      <td class="num"><input type="number" step="0.01" id="fr-${k}" data-fk="${k}" data-ff="recebido" value="${rec===null?'':rec}" placeholder="0,00" aria-label="Valor recebido"></td>
+      <td class="num">${dif===null?'<span class="muted">—</span>':`<span class="${Math.abs(dif)<0.01?'diff-ok':'diff-bad'}">${dif>0?'+':''}${fmt(dif)}</span>`}</td>
+      <td>${sit}</td></tr>`}).join('')}</tbody></table></div>`;
+}
+function vAjustes(){
+  const c=S.config;
+  const f=(k,l,step,suf)=>`<label for="cf-${k}"><span>${l}</span><span class="row" style="gap:6px"><input type="number" id="cf-${k}" data-cf="${k}" step="${step}" value="${c[k]}" ${CLINIC_KEYS.includes(k)&&!ADMIN?'disabled':''}>${suf?`<span class="muted">${suf}</span>`:''}</span></label>`;
+  const per=[...S.periodos].map((p,i)=>({...p,i})).sort((a,b)=>a.ini.localeCompare(b.ini));
+  return `<h1>Ajustes</h1>
+  <p class="sub">As regras que o cálculo usa. Meta, custos e horários são seus; períodos, valores, faltas e tabela são da clínica.</p>
+  ${ADMIN?'<div class="info" style="margin-bottom:16px">Você é administradora: mudanças nas regras da clínica valem para todas as psicólogas.</div>':'<div class="info" style="margin-bottom:16px">Regras da clínica (períodos da Unimed, valores, faltas e tabela) são definidas pela administração e aparecem bloqueadas.</div>'}
+  <div class="card" style="margin-bottom:16px"><h2>Períodos da Unimed</h2>
+    <p class="muted" style="margin-top:-6px;font-size:13px">A Unimed define as datas de cada período. Cadastre conforme a clínica informar; depois do último, o sistema estima períodos de 4 semanas.</p>
+    <div class="row" style="gap:24px;margin-bottom:12px">${f('pagInter','Intercâmbio (valor maior) cai no dia','1','')}${f('pagLocal','Local (valor menor) cai no dia','1','')}</div>
+    <div class="tw"><table><thead><tr><th>Sessões de</th><th>até</th><th>Mês do pagamento</th><th></th></tr></thead><tbody>
+    ${per.map(p=>`<tr><td><input type="date" id="pi-${p.i}" data-per="${p.i}" ${ADMIN?'':'disabled'} data-pk="ini" value="${p.ini}"></td><td><input type="date" id="pf-${p.i}" data-per="${p.i}" ${ADMIN?'':'disabled'} data-pk="fim" value="${p.fim}"></td><td><input type="month" id="pp-${p.i}" data-per="${p.i}" ${ADMIN?'':'disabled'} data-pk="mes" value="${p.mes}"></td><td>${ADMIN?`<button class="danger" data-a="delper" data-i="${p.i}">Remover</button>`:''}</td></tr>`).join('')}
+    </tbody></table></div>
+    ${ADMIN?'<button data-a="addper" style="margin-top:12px">+ Adicionar próximo período</button>':''}</div>
+  <div class="cfg">
+    <div class="card"><h2>Particular</h2>${f('corteParticular','Conta sessões até o dia','1','')}${f('pagParticular','Paga no dia','1','')}</div>
+    <div class="card"><h2>Valores por sessão (repasse)</h2>${f('valorLocal','Unimed Local','0.01','R$')}${f('valorInter','Unimed Intercâmbio','0.01','R$')}
+      <button data-a="aplicavalores">Aplicar a todos os pacientes Unimed</button></div>
+    <div class="card"><h2>Meta mensal</h2>${f('meta','Líquido desejado por mês','50','R$')}<p class="muted" style="font-size:13px">Usada no Painel, nos Lembretes e no Dashboard.</p></div>
+    <div class="card"><h2>Custos</h2>${f('impostoPct','DAS sobre o repasse','0.1','%')}${f('contador','Contador por mês','1','R$')}</div>
+    <div class="card"><h2>Faltas sem aviso</h2>${f('faltaUnimed','Paciente Unimed: valor cobrado','1','R$')}${f('faltaValor','Paciente particular: taxa da tabela','1','R$')}${f('faltaPct','Repasse','1','%')}
+      <p class="muted" style="font-size:13px">Repasse por falta cobrada: ${fmt(c.faltaUnimed*c.faltaPct/100)} (Unimed) ou ${fmt(c.faltaValor*c.faltaPct/100)} (Particular). Entra no fechamento Particular, porque é cobrada da família.</p></div>
+    <div class="card"><h2>Horários fixos</h2><label for="cf-inicio"><span>Gerar sessões a partir de</span><input type="date" id="cf-inicio" data-cf="inicio" value="${c.inicio}"></label>
+      <p class="muted" style="font-size:13px">Antes dessa data, valem só as sessões lançadas manualmente na agenda.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h2>Tabela de valores da clínica</h2>
+    <p class="muted" style="margin-top:-6px;font-size:13px">Valores para pacientes particulares (Clínica Imaginare 2025.1). Repasse de ${S.config.repassePct}% sobre cada valor. Unimed segue os valores próprios acima.</p>
+    <div class="row" style="margin-bottom:8px">${f('repassePct','Repasse','1','%')}</div>
+    <div class="tw"><table><thead><tr><th>Procedimento</th><th class="num">Valor da clínica</th><th class="num">Repasse</th></tr></thead><tbody>
+    ${S.config.procs.map((x,i)=>`<tr><td>${esc(x.nome)}</td><td class="num"><input type="number" step="0.01" id="pr-${i}" data-proc="${i}" ${ADMIN?'':'disabled'} value="${x.valor}" aria-label="Valor de ${esc(x.nome)}"></td><td class="num">${fmt(x.valor*S.config.repassePct/100)}</td></tr>`).join('')}
+    <tr><td>Taxa de cancelamento</td><td class="num">${fmt(+c.faltaValor)}</td><td class="num">${fmt(c.faltaValor*c.faltaPct/100)}</td></tr>
+    </tbody></table></div></div>
+  </div>`;
+}
+
+/* ---------- Hoje (1 toque) ---------- */
+function hojeCard(){
+  const list=occurrences(TODAY,TODAY);
+  const prevPend=occurrences(addDays(TODAY,-90),addDays(TODAY,-1)).filter(o=>o.status==='pendente').length;
+  const feitos=list.filter(o=>o.status!=='pendente'&&o.status!=='prevista').length;
+  const d=pd(TODAY);
+  return `<div class="card">
+    <div class="row between"><h2 style="margin:0">Hoje · ${WDL[d.getDay()].toLowerCase()}, ${br(TODAY)}</h2>${list.length?`<span class="chip ${feitos===list.length?'good':'warn'}">${feitos}/${list.length} marcadas</span>`:''}</div>
+    <p class="muted" style="margin:4px 0 12px;font-size:13px">Um toque: ✓ veio, ✕ faltou. Se faltou, escolha se a taxa foi cobrada.</p>
+    ${list.length?`<div class="today">${list.map(o=>{const p=pat(o.pid);const f=o.status==='falta_cobrada'||o.status==='falta_avisada';
+      return `<div class="trow ${o.status==='realizada'?'is-ok':f?'is-no':''}">
+        <span class="th">${o.h||'—'}</span>
+        <span class="tn"><b class="tdot" style="background:var(${['--s-local','--s-inter','--s-part'][['local','intercambio','particular'].indexOf(p.tipo)]})"></b>${esc(nm(p))}${o.proc?' <span class="muted">· '+esc(procOf(o.proc)?procOf(o.proc).nome:'')+'</span>':''}
+          ${f?`<span class="tfee">Taxa: <button data-a="st1" data-k="${o.key}" data-s="falta_cobrada" class="${o.status==='falta_cobrada'?'on':''}">cobrada +${fmt(faltaLiq(o))}</button><button data-a="st1" data-k="${o.key}" data-s="falta_avisada" class="${o.status==='falta_avisada'?'on':''}">não cobrada</button></span>`:''}</span>
+        <span class="tb">
+          <button class="tick ${o.status==='realizada'?'on':''}" data-a="st1" data-k="${o.key}" data-s="realizada" aria-label="${esc(nm(p))} veio" title="Veio">✓</button>
+          <button class="tick no ${f?'on':''}" data-a="st1" data-k="${o.key}" data-s="falta_avisada" data-toggle="falta" aria-label="${esc(nm(p))} faltou" title="Faltou">✕</button>
+        </span></div>`}).join('')}</div>`:'<p class="muted" style="margin:0">Nenhuma sessão hoje.</p>'}
+    ${prevPend?`<p style="margin:12px 0 0;font-size:13px"><a href="#agenda" style="color:var(--warn);font-weight:600">${prevPend} ${prevPend===1?'sessão de dia anterior':'sessões de dias anteriores'} ainda a confirmar →</a></p>`:''}
+  </div>`;
+}
+/* ---------- Lembretes ---------- */
+function lembretes(){
+  const L=[];const add=(n,ico,txt,tone,link)=>L.push({n,ico,txt,tone,link});
+  const dd=s=>Math.round((pd(s)-pd(TODAY))/864e5);
+  const quando=n=>n===0?'hoje':n===1?'amanhã':`em ${n} dias`;
+  const cu=cycleContaining('unimed',TODAY),cp=cycleContaining('particular',TODAY);
+  [[cu,'Unimed'],[cp,'Particular']].forEach(([c,nm])=>{if(!c)return;const n=dd(c.end);if(n<=3)add(n,'📅',`Período ${nm} (${br(c.start)} a ${br(c.end)}) fecha ${quando(n)}. Confira se todas as sessões estão marcadas.`,n<=1?'warn':'',`#agenda`)});
+  // pagamentos próximos e não conferidos
+  const rows=[];uPeriods().forEach(p=>{rows.push({...p,tipos:['intercambio'],k:'intercambio'+p.end,pag:p.pagI,nm:'Unimed Intercâmbio'});rows.push({...p,tipos:['local'],k:'local'+p.end,pag:p.pagL,nm:'Unimed Local'})});
+  let c=cp;for(let i=0;i<3&&c;i++){rows.push({...c,k:'particular'+c.end,nm:'Particular'});c=prevCycle(c)}
+  rows.forEach(r=>{const n=dd(r.pag);const f=S.fech[r.k]||{};const st=cycleStats(r);
+    if(n>=0&&n<=3&&st.prev>0)add(n,'💰',`${quando(n)[0].toUpperCase()+quando(n).slice(1)} (${br(r.pag)}) cai o ${r.nm}: previsto ${fmt(st.prev)}.`,'', '#fechamentos');
+    if(n<0&&n>=-20&&st.prev>0&&(f.recebido===undefined||f.recebido===''))add(1,'🔎',`Pagamento ${r.nm} de ${br(r.pag)} ainda não conferido.`,'warn','#fechamentos');
+  });
+  const pend=countPend();if(pend)add(0,'⏳',`${pend} ${pend===1?'sessão passada':'sessões passadas'} a confirmar (inclui faltas para decidir se foram cobradas).`,'warn','#agenda');
+  const cu0=cycleContaining('unimed',TODAY);if(cu0&&S.config.meta){const mp=pd(cu0.pag);const ms=monthSummary(mp.getFullYear(),mp.getMonth());const gap=S.config.meta-ms.prev.liq;
+    if(gap>0)add(3,'🎯',`Faltam ${fmt(gap)} para a meta de ${MESES[mp.getMonth()]} no previsto.`,'','#painel')}
+  return L.sort((a,b)=>a.n-b.n);
+}
+function lembretesCard(){
+  const L=lembretes();
+  return `<div class="card"><h2>Lembretes</h2>
+    ${L.length?`<ul class="rem">${L.map(l=>`<li class="${l.tone}"><span aria-hidden="true">${l.ico}</span><a href="${l.link}">${esc(l.txt)}</a></li>`).join('')}</ul>`:'<p class="muted" style="margin:0">Nada pendente. 🎉</p>'}
+  </div>`;
+}
+/* ---------- Meta ---------- */
+function metaBlock(ms){
+  const meta=+S.config.meta||0;if(!meta)return '';
+  const pc=ms.prev.liq/meta*100,cc=Math.max(0,ms.conf.liq)/meta*100,gap=meta-ms.prev.liq;
+  const vi=+S.config.valorInter*(1-S.config.impostoPct/100),vl=+S.config.valorLocal*(1-S.config.impostoPct/100);
+  return `<div class="card meta">
+    <div class="row between"><h2 style="margin:0">🎯 Meta de ${MESES[ui.monthM]}/${ui.monthY}</h2><span class="muted" style="font-size:13px">${fmt(meta)} líquido · edite em Ajustes</span></div>
+    <div class="row between" style="font-size:14px;margin-top:6px"><span>Previsto <b>${fmt(ms.prev.liq)}</b> · Confirmado <b>${fmt(Math.max(0,ms.conf.liq))}</b></span><span class="${pc>=100?'diff-ok':''}" style="font-weight:700">${pc.toFixed(0)}% no previsto</span></div>
+    <div class="mbar"><i class="mp" style="width:${Math.min(100,pc).toFixed(1)}%"></i><i class="mc" style="width:${Math.min(100,cc).toFixed(1)}%"></i></div>
+    <div class="muted" style="font-size:13px">${gap>0?`Faltam ${fmt(gap)} ≈ ${Math.ceil(gap/vi)} sessões Intercâmbio ou ${Math.ceil(gap/vl)} Local.`:`Previsto passa a meta em ${fmt(-gap)}.`} Confirmado: ${cc.toFixed(0)}%.</div>
+  </div>`;
+}
+/* ---------- Dashboard ---------- */
+const MS=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+function monthsRange(){const ps=uPeriods();if(!ps.length)return[];const f=pd(ps[0].pag),t=pd(TODAY);const out=[];let y=f.getFullYear(),m=f.getMonth();const lim=t.getFullYear()*12+t.getMonth()+3;while(y*12+m<=lim){out.push([y,m]);m++;if(m>11){m=0;y++}}return out}
+function monthData(y,m){
+  const ms=monthSummary(y,m);const os=[...ms.u.os,...ms.p.os];const bt=byTipo(os);
+  const real=os.filter(o=>o.status==='realizada').length,falt=os.filter(o=>o.status==='falta_cobrada'||o.status==='falta_avisada').length;
+  const fechado=(!ms.uc||ms.uc.end<TODAY)&&ms.pc.end<TODAY;
+  const k=fechado?'conf':'prev';
+  return{y,m,ms,bt,real,falt,taxa:real+falt?falt/(real+falt):null,fechado,k,bruto:ms[k].bruto,liq:ms[k].liq,lab:MS[m]+'/'+String(y).slice(2)};
+}
+function niceMax(v){if(v<=0)return 100;const p=Math.pow(10,Math.floor(Math.log10(v)));const n=v/p;return (n<=1?1:n<=2?2:n<=2.5?2.5:n<=5?5:10)*p}
+const kfmt=v=>PRIV?'•••':v>=1000?'R$ '+(v/1000).toLocaleString('pt-BR',{maximumFractionDigits:1})+' mil':fmt(v);
+function tipAttr(h){return `data-tip="${esc(h)}"`}
+function barChart(D){
+  const W=760,H=290,L=64,R=16,T=24,B=36,iw=W-L-R,ih=H-T-B;
+  const max=niceMax(Math.max(...D.map(d=>d.bruto))*1.08);const y=v=>T+ih-v/max*ih;
+  const bw=Math.min(56,iw/D.length*0.5),step=iw/D.length;
+  let g='';for(let i=0;i<=4;i++){const v=max*i/4;g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" class="grid"/><text x="${L-8}" y="${y(v)+4}" class="ax" text-anchor="end">${kfmt(v)}</text>`}
+  let b='';D.forEach((d,i)=>{const cx=L+step*i+step/2;let acc=0;const segs=['local','intercambio','particular'];
+    const tip=`<b>${MESES[d.m]}/${d.y}</b>${d.fechado?'':' · previsto'}<br>`+segs.map(t=>`${TIPOS[t]}: ${fmt(d.bt[t][d.k])}`).join('<br>')+`<br><b>Bruto ${fmt(d.bruto)}</b><br>Líquido ${fmt(d.liq)}`;
+    segs.forEach((t,j)=>{const v=d.bt[t][d.k];if(v<=0)return;const y1=y(acc+v),h=Math.max(0,y(acc)-y(acc+v)-(acc>0?2:0));
+      b+=`<rect x="${cx-bw/2}" y="${y1}" width="${bw}" height="${h}" rx="${acc+v>=d.bruto-0.01?4:0}" fill="var(${['--s-local','--s-inter','--s-part'][j]})" ${d.fechado?'':'fill-opacity=".45"'}/>`;acc+=v});
+    b+=`<text x="${cx}" y="${y(d.bruto)-7}" class="vl" text-anchor="middle">${kfmt(d.bruto)}</text>`;
+    b+=`<text x="${cx}" y="${H-12}" class="ax" text-anchor="middle">${d.lab}${d.fechado?'':'*'}</text>`;
+    b+=`<rect x="${cx-step/2}" y="${T}" width="${step}" height="${ih}" fill="transparent" class="hit" ${tipAttr(tip)}/>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Faturamento bruto por mês de recebimento">${g}<line x1="${L}" x2="${W-R}" y1="${y(0)}" y2="${y(0)}" class="base"/>${b}</svg>`;
+}
+function lineChart(D){
+  const W=760,H=240,L=64,R=90,T=20,B=36,iw=W-L-R,ih=H-T-B;const meta=+S.config.meta||0;
+  const max=niceMax(Math.max(meta,...D.map(d=>d.liq))*1.1);const y=v=>T+ih-Math.max(0,v)/max*ih;const step=D.length>1?iw/(D.length-1):0;const x=i=>L+(D.length>1?step*i:iw/2);
+  let g='';for(let i=0;i<=4;i++){const v=max*i/4;g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" class="grid"/><text x="${L-8}" y="${y(v)+4}" class="ax" text-anchor="end">${kfmt(v)}</text>`}
+  let solid='',dash='';D.forEach((d,i)=>{const pt=`${x(i)},${y(d.liq)}`;if(d.fechado)solid+=(solid?' L':'M')+pt;});
+  const lastClosed=D.map(d=>d.fechado).lastIndexOf(true);
+  D.forEach((d,i)=>{if(i>=Math.max(0,lastClosed))dash+=(dash?' L':'M')+`${x(i)},${y(d.liq)}`});
+  let pts='';D.forEach((d,i)=>{pts+=`<circle cx="${x(i)}" cy="${y(d.liq)}" r="5" class="${d.fechado?'pt':'pt open'}"/><text x="${x(i)}" y="${H-12}" class="ax" text-anchor="middle">${d.lab}${d.fechado?'':'*'}</text>`;
+    pts+=`<rect x="${x(i)-(step||iw)/2}" y="${T}" width="${step||iw}" height="${ih}" fill="transparent" class="hit" ${tipAttr(`<b>${MESES[d.m]}/${d.y}</b>${d.fechado?'':' · previsto'}<br>Líquido ${fmt(d.liq)}${meta?`<br>${(d.liq/meta*100).toFixed(0)}% da meta`:''}`)}/>`});
+  const metaL=meta?`<line x1="${L}" x2="${W-R}" y1="${y(meta)}" y2="${y(meta)}" class="metaline"/><text x="${W-R+6}" y="${y(meta)+4}" class="ax">Meta ${kfmt(meta)}</text>`:'';
+  const last=D[D.length-1];
+  return `<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="Líquido recebido por mês">${g}${metaL}<path d="${solid}" class="ln"/><path d="${dash}" class="ln dash"/>${pts}${last?`<text x="${x(D.length-1)+10}" y="${y(last.liq)-10}" class="vl">${kfmt(last.liq)}</text>`:''}</svg>`;
+}
+function vDashboard(){
+  const D=monthsRange().map(([y,m])=>monthData(y,m));
+  if(!D.length)return `<h1>Dashboard</h1><div class="card">Cadastre os períodos da Unimed em Ajustes para ver o histórico.</div>`;
+  const fech=D.filter(d=>d.fechado);
+  const base=fech.length?fech:D;
+  const media=base.reduce((a,d)=>a+d.liq,0)/base.length;const best=base.reduce((a,d)=>d.liq>a.liq?d:a,base[0]);
+  const fw=faltasWindow('90');
+  return `<h1>Dashboard</h1>
+  <p class="sub">Por mês em que o dinheiro cai na conta. * = mês ainda em andamento ou futuro (valor previsto). Dados desde ${br(dataIni())}.</p>
+  <div class="tiles">
+    <div class="tile"><span>Média mensal líquida</span><b>${fmt(media)}</b><small>${fech.length?fech.length+' meses fechados':'só previsto por enquanto'}</small></div>
+    <div class="tile"><span>Melhor mês</span><b>${fmt(best.liq)}</b><small>${MESES[best.m]}/${best.y}${best.fechado?'':' (previsto)'}</small></div>
+    <div class="tile"><span>Taxa de faltas · 90 dias</span><b>${fw.taxa===null?'—':(fw.taxa*100).toFixed(1).replace('.',',')+'%'}</b><small>${fw.falt} faltas em ${fw.falt+fw.real} sessões</small></div>
+    <div class="tile"><span>Meta mensal</span><b>${S.config.meta?fmt(+S.config.meta):'—'}</b><small>${S.config.meta?D.filter(d=>d.liq>=S.config.meta).length+' de '+D.length+' meses atingem':'defina em Ajustes'}</small></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <div class="row between"><h2 style="margin:0">Faturamento por mês</h2>
+      <div class="legend-inline">${['local','intercambio','particular'].map((t,j)=>`<span><b style="background:var(${['--s-local','--s-inter','--s-part'][j]})"></b>${TIPOS[t]}</span>`).join('')}<span><b style="background:var(--s-inter);opacity:.45"></b>previsto</span></div></div>
+    <p class="muted" style="font-size:13px;margin:4px 0 8px">Repasse bruto, antes do DAS e do contador.</p>
+    <div class="tw">${barChart(D)}</div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2 style="margin:0">Evolução do líquido</h2>
+    <p class="muted" style="font-size:13px;margin:4px 0 8px">Linha cheia = meses fechados; tracejada = previsto. Linha da meta em pontilhado.</p>
+    <div class="tw">${lineChart(D)}</div>
+  </div>
+  <div class="card tw" style="margin-top:16px;padding:8px 12px"><h2 style="margin:12px 10px">Histórico mês a mês</h2><table>
+    <thead><tr><th>Mês</th><th class="num">Realizadas</th><th class="num">Faltas</th><th class="num">Taxa faltas</th><th class="num">Bruto</th><th class="num">DAS</th><th class="num">Contador</th><th class="num">Líquido</th><th class="num">Meta</th></tr></thead>
+    <tbody>${D.map(d=>`<tr><td>${MESES[d.m]}/${d.y} ${d.fechado?'':'<span class="chip neutral">previsto</span>'}</td><td class="num">${d.real}</td><td class="num">${d.falt}</td><td class="num">${d.taxa===null?'—':(d.taxa*100).toFixed(1).replace('.',',')+'%'}</td><td class="num">${fmt(d.bruto)}</td><td class="num">− ${fmt(d.ms[d.k].imp)}</td><td class="num">− ${fmt(+S.config.contador)}</td><td class="num"><b>${fmt(d.liq)}</b></td><td class="num">${S.config.meta?(d.liq/S.config.meta*100).toFixed(0)+'%':'—'}</td></tr>`).join('')}</tbody></table></div>`;
+}
+/* ---------- Faltas ---------- */
+function faltasWindow(w){
+  const cu=cycleContaining('unimed',TODAY);
+  const ini=w==='periodo'&&cu?cu.start:w==='30'?addDays(TODAY,-29):w==='90'?addDays(TODAY,-89):dataIni();
+  const os=occurrences(ini,TODAY).filter(o=>['realizada','falta_cobrada','falta_avisada'].includes(o.status)&&!o.proc);
+  const per={};os.forEach(o=>{const r=per[o.pid]=per[o.pid]||{pid:o.pid,real:0,fc:0,fa:0,perdido:0,taxas:0};
+    if(o.status==='realizada')r.real++;else{if(o.status==='falta_cobrada'){r.fc++;r.taxas+=faltaLiq(o)}else r.fa++;r.perdido+=pat(o.pid).valor}});
+  const rows=Object.values(per);const real=rows.reduce((a,r)=>a+r.real,0),falt=rows.reduce((a,r)=>a+r.fc+r.fa,0);
+  return{ini,rows,real,falt,taxa:real+falt?falt/(real+falt):null,perdido:rows.reduce((a,r)=>a+r.perdido,0),taxas:rows.reduce((a,r)=>a+r.taxas,0),fc:rows.reduce((a,r)=>a+r.fc,0)};
+}
+function vFaltas(){
+  const w=ui.fw||'tudo';const F=faltasWindow(w);
+  const rows=F.rows.filter(r=>r.fc+r.fa>0).map(r=>({...r,t:(r.fc+r.fa)/(r.real+r.fc+r.fa)})).sort((a,b)=>(b.fc+b.fa)-(a.fc+a.fa)||b.t-a.t);
+  const opts=[['periodo','Período Unimed atual'],['30','Últimos 30 dias'],['90','Últimos 90 dias'],['tudo','Desde '+br(dataIni())]];
+  return `<h1>Relatório de faltas</h1>
+  <p class="sub">Falta = paciente agendado que não veio (avisando ou não). Cancelamentos da clínica e feriados não entram.</p>
+  <div class="row" style="margin-bottom:16px">${opts.map(([k,l])=>`<button data-a="fw" data-w="${k}" class="${w===k?'primary':''}">${l}</button>`).join('')}</div>
+  <div class="tiles">
+    <div class="tile"><span>Taxa de faltas</span><b>${F.taxa===null?'—':(F.taxa*100).toFixed(1).replace('.',',')+'%'}</b><small>${F.falt} de ${F.falt+F.real} sessões desde ${br(F.ini)}</small></div>
+    <div class="tile"><span>Valor que deixou de entrar</span><b>${fmt(F.perdido)}</b><small>valor das sessões não realizadas</small></div>
+    <div class="tile"><span>Recuperado com taxas</span><b>${fmt(F.taxas)}</b><small>${F.fc} falta${F.fc===1?'':'s'} cobrada${F.fc===1?'':'s'}</small></div>
+    <div class="tile"><span>Perda líquida</span><b>${fmt(F.perdido-F.taxas)}</b><small>deixou de entrar − taxas</small></div>
+  </div>
+  <div class="card tw" style="margin-top:16px;padding:8px 12px"><h2 style="margin:12px 10px">Por paciente</h2>
+  ${rows.length?`<table><thead><tr><th>Paciente</th><th>Tipo</th><th class="num">Sessões</th><th class="num">Faltas</th><th style="width:180px">Taxa</th><th class="num">Cobradas</th><th class="num">Deixou de entrar</th></tr></thead>
+    <tbody>${rows.map(r=>{const p=pat(r.pid);const tp=r.t*100;return `<tr><td>${esc(nm(p))}</td><td>${tchip(p.tipo)}</td><td class="num">${r.real+r.fc+r.fa}</td><td class="num">${r.fc+r.fa}</td>
+      <td><div class="row" style="gap:8px;flex-wrap:nowrap"><div class="fbar"><i style="width:${tp.toFixed(1)}%" class="${tp>=30?'hi':''}"></i></div><span style="font-variant-numeric:tabular-nums;min-width:44px">${tp.toFixed(0)}%</span></div></td>
+      <td class="num">${r.fc}</td><td class="num">${fmt(r.perdido)}</td></tr>`}).join('')}</tbody></table>`:'<p class="muted" style="padding:0 10px 12px">Nenhuma falta neste período.</p>'}
+  <p class="muted" style="font-size:12px;padding:0 10px">Barra vermelha: 30% ou mais de faltas.</p></div>`;
+}
+
+const tipEl=document.createElement('div');tipEl.className='tip';tipEl.setAttribute('role','tooltip');document.body.appendChild(tipEl);
+document.addEventListener('mousemove',e=>{const t=e.target.closest&&e.target.closest('[data-tip]');if(!t){tipEl.style.display='none';return}
+  tipEl.innerHTML=t.getAttribute('data-tip');tipEl.style.display='block';const w=tipEl.offsetWidth;let x=e.clientX+14;if(x+w>innerWidth-8)x=e.clientX-w-14;tipEl.style.left=x+'px';tipEl.style.top=(e.clientY+14)+'px'});
+/* ---------- render ---------- */
+const views={acessos:vAcessos,painel:vPainel,agenda:vAgenda,dashboard:vDashboard,faltas:vFaltas,pacientes:vPacientes,fechamentos:vFech,ajustes:vAjustes};
+const current=()=>{const h=location.hash.slice(1);return views[h]?h:'painel'};
+function render(keepFocus){
+  const v=current();const active=keepFocus&&document.activeElement&&document.activeElement.id;
+  document.getElementById('view').innerHTML=views[v]();
+  document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('on',a.dataset.nav===v));
+  document.body.classList.toggle('priv',PRIV);const pb=document.getElementById('privbtn');if(pb){pb.innerHTML=PRIV?'<span aria-hidden="true">🙈</span> Mostrar valores':'<span aria-hidden="true">👁</span> Ocultar valores';pb.setAttribute('aria-pressed',PRIV)}
+  if(active){const el=document.getElementById(active);if(el)el.focus()}
+}
+window.addEventListener('hashchange',()=>{if(document.querySelector('.app').hidden||!ui.daySel)return;ui.confirmReset=false;render();window.scrollTo(0,0)});
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-a]');if(!b)return;
+  const a=b.dataset.a;if(a!=='reset')ui.confirmReset=false;
+  if(a==='st'){const k=b.dataset.k,s=b.dataset.s;if(S.status[k]===s)delete S.status[k];else S.status[k]=s}
+  else if(a==='st1'){const k=b.dataset.k,s=b.dataset.s;const cur=S.status[k];
+    if(b.dataset.toggle==='falta'){if(cur==='falta_avisada'||cur==='falta_cobrada')delete S.status[k];else S.status[k]='falta_avisada'}
+    else if(s==='realizada'&&cur==='realizada')delete S.status[k];else S.status[k]=s}
+  else if(a==='sair'){sb.auth.signOut().then(()=>location.replace(location.pathname));return}
+  else if(a==='aprovar'||a==='recusar'||a==='admin'||a==='usuario'){acessoAcao(a,b.dataset.id);return}
+  else if(a==='recarregar-acessos'){ACESSOS=null;render();return}
+  else if(a==='priv'){PRIV=!PRIV;try{localStorage.setItem('repasses-priv',PRIV?'1':'0')}catch(e){}}
+  else if(a==='fw'){ui.fw=b.dataset.w}
+  else if(a==='wk'){ui.daySel=addDays(mondayOf(ui.daySel),+b.dataset.d)}
+  else if(a==='day'){ui.daySel=b.dataset.d}
+  else if(a==='dstep'){const d=+b.dataset.d;let n=addDays(ui.daySel,d);if(pd(n).getDay()===0)n=addDays(n,d);ui.daySel=n}
+  else if(a==='mes'){let m=ui.monthM+ +b.dataset.d,y=ui.monthY;if(m<0){m=11;y--}if(m>11){m=0;y++}ui.monthM=m;ui.monthY=y}
+  else if(a==='allreal'){occurrences(b.dataset.ws,b.dataset.we).forEach(o=>{if(o.status==='pendente')S.status[o.key]='realizada'})}
+  else if(a==='delav'){const id=+b.dataset.id;S.avulsas=S.avulsas.filter(x=>x.id!==id);delete S.status['a:'+id]}
+  else if(a==='filtro'){ui.filtro=b.dataset.f}
+  else if(a==='addp'){S.patients.push({id:S.nextId++,nome:'Novo paciente',tipo:'local',valor:+S.config.valorLocal,ref:4,slots:[],ativo:true});ui.filtro='todos'}
+  else if(a==='delp'){const id=+b.dataset.id;S.patients=S.patients.filter(p=>p.id!==id);S.avulsas=S.avulsas.filter(x=>x.pid!==id)}
+  else if(a==='addslot'){const p=pat(+b.dataset.id);const d=+document.getElementById('sd-'+p.id).value,h=document.getElementById('sh-'+p.id).value;if(h&&!p.slots.some(s=>s.d===d&&s.h===h)){p.slots.push({d,h});p.slots.sort((x,y)=>x.d-y.d||x.h.localeCompare(y.h));p.ref=p.slots.length*4}}
+  else if(a==='delslot'){const p=pat(+b.dataset.id);p.slots.splice(+b.dataset.i,1);p.ref=p.slots.length*4}
+  else if((a==='addper'||a==='delper')&&!ADMIN){return}
+  else if(a==='addper'){const ps=[...S.periodos].sort((x,y)=>x.ini.localeCompare(y.ini));const l=ps[ps.length-1];const ini=l?addDays(l.fim,1):TODAY;S.periodos.push({ini,fim:addDays(ini,27),mes:l?nextMes(l.mes):addMonths(ini,1).slice(0,7)})}
+  else if(a==='delper'){S.periodos.splice(+b.dataset.i,1)}
+  else if(a==='aplicavalores'){S.patients.forEach(p=>{if(p.tipo==='local')p.valor=+S.config.valorLocal;if(p.tipo==='intercambio')p.valor=+S.config.valorInter});b.textContent='Valores aplicados';save();return}
+  save();render();
+});
+document.addEventListener('change',e=>{
+  const t=e.target;if(PRIV&&t.closest('main')){render();return}
+  if(t.dataset.pf){const p=pat(+t.dataset.id);if(!p)return;const f=t.dataset.pf;
+    if(f==='nome')p.nome=t.value.trim()||p.nome;
+    else if(f==='tipo'){p.tipo=t.value;p.confirmar=false;if(t.value==='local')p.valor=+S.config.valorLocal;if(t.value==='intercambio')p.valor=+S.config.valorInter}
+    else if(f==='valor'){p.valor=Math.max(0,parseFloat(t.value)||0);p.confirmar=false}
+    else if(f==='ativo')p.ativo=t.checked;
+    save();render(true);}
+  else if(t.dataset.fk){const k=t.dataset.fk;S.fech[k]=S.fech[k]||{};if(t.dataset.ff==='nf')S.fech[k].nf=t.checked;else S.fech[k].recebido=t.value===''?'':parseFloat(t.value);save();render(true)}
+  else if((t.dataset.proc!==undefined||t.dataset.per!==undefined||CLINIC_KEYS.includes(t.dataset.cf))&&!ADMIN){render(true)}
+  else if(t.dataset.proc!==undefined){const x=S.config.procs[+t.dataset.proc];if(x){x.valor=parseFloat(t.value)||0;save();render(true)}}
+  else if(t.dataset.per!==undefined){const p=S.periodos[+t.dataset.per];if(p&&t.value){p[t.dataset.pk]=t.value;save();render(true)}}
+  else if(t.dataset.cf){S.config[t.dataset.cf]=t.type==='date'?t.value:(parseFloat(t.value)||0);save();render(true)}
+});
+document.addEventListener('submit',async e=>{
+  const id=e.target.id;if(!['f-login','f-cadastro','f-esqueci','f-novasenha'].includes(id))return;e.preventDefault();
+  const btn=e.target.querySelector('button[type=submit]');const old=btn.textContent;btn.disabled=true;btn.textContent='Aguarde…';
+  const msg=t=>{document.getElementById('auth-msg').textContent=t};msg('');
+  try{
+    if(id==='f-login'){
+      const{data,error}=await sb.auth.signInWithPassword({email:document.getElementById('l-email').value.trim(),password:document.getElementById('l-pass').value});
+      if(error){msg(error.message==='Invalid login credentials'?'E-mail ou senha incorretos.':/not confirmed/i.test(error.message)?'Confirme seu e-mail pelo link que enviamos antes de entrar.':'Não foi possível entrar: '+error.message);return}
+      await routeSession(data.session);
+    }else if(id==='f-cadastro'){
+      const nome=document.getElementById('c-nome').value.trim(),email=document.getElementById('c-email').value.trim();
+      const{data,error}=await sb.auth.signUp({email,password:document.getElementById('c-pass').value,options:{data:{nome},emailRedirectTo:location.origin+location.pathname}});
+      if(error){msg(/registered/i.test(error.message)?'Este e-mail já tem cadastro. Use "Entrar".':'Não foi possível enviar: '+error.message);return}
+      if(data.session){await routeSession(data.session)}else{document.getElementById('conf-email').textContent=email;showAuth('confirme')}
+    }else if(id==='f-esqueci'){
+      const{error}=await sb.auth.resetPasswordForEmail(document.getElementById('e-email').value.trim(),{redirectTo:location.origin+location.pathname});
+      if(error){msg('Não foi possível enviar: '+error.message);return}showAuth('enviado');
+    }else if(id==='f-novasenha'){
+      const{error}=await sb.auth.updateUser({password:document.getElementById('n-pass').value});
+      if(error){msg('Não foi possível salvar: '+error.message);return}
+      history.replaceState(null,'',location.pathname);const s2=await sb.auth.getSession();await routeSession(s2.data.session);
+    }
+  }finally{btn.disabled=false;btn.textContent=old}
+});
+document.addEventListener('click',e=>{const a=e.target.closest('[data-a2="sair"]');if(!a)return;e.preventDefault();sb.auth.signOut().then(()=>location.replace(location.pathname))});
+document.addEventListener('click',e=>{const a=e.target.closest('[data-auth]');if(!a)return;e.preventDefault();showAuth(a.dataset.auth)});
+document.addEventListener('submit',e=>{
+  if(e.target.id!=='fav')return;e.preventDefault();
+  const pid=+document.getElementById('av-p').value,date=document.getElementById('av-d').value,h=document.getElementById('av-h').value,s=document.getElementById('av-s').value;
+  if(!pid||!date)return;
+  const proc=document.getElementById('av-x').value;const id=S.nextAid++;S.avulsas.push({id,pid,date,h,proc});if(s)S.status['a:'+id]=s;ui.daySel=date;save();render();
+});
+(async function boot(){
+  if(!sb){showAuth('login','Configuração do sistema ausente (config.js).');return}
+  let recovering=/type=recovery/.test(location.hash);
+  sb.auth.onAuthStateChange((ev)=>{if(ev==='PASSWORD_RECOVERY'){recovering=true;showAuth('novasenha')}});
+  const{data}=await sb.auth.getSession();
+  if(recovering){showAuth('novasenha');return}
+  if(/access_token|type=signup|error=/.test(location.hash))history.replaceState(null,'',location.pathname);
+  await routeSession(data.session);
+})();
+})();
+
+</script>
+</body>
+</html>
