@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta name="robots" content="noindex">
+<script>try{var t=localStorage.getItem("psizse-tema");if(t==="claro")document.documentElement.setAttribute("data-theme","light");else if(t==="escuro")document.documentElement.setAttribute("data-theme","dark")}catch(e){}</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -386,6 +387,91 @@ nav a[hidden]{display:none}
   .scard .top{flex-basis:100%}
   .scard .check{flex:1}
 }
+.seg3{display:inline-flex;background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:4px;gap:2px}
+.seg3 button{border:none;background:none;border-radius:99px;padding:8px 14px;font-size:13.5px;color:var(--muted);min-height:0}
+.seg3 button.on{background:var(--accent);color:var(--surface)}
+.seg3 button{display:inline-flex;align-items:center;gap:6px}.seg3 .ic{width:17px;height:17px}
+@media (max-width:760px){.tema-card .row{flex-direction:column;align-items:stretch}.seg3{display:flex}.seg3 button{flex:1;padding:10px 6px}}
+.big-add{padding:10px 18px;font-size:14.5px;display:inline-flex;align-items:center;gap:6px}
+.ptools{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.search{flex:1 1 260px;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:0 14px;color:var(--muted)}
+.search input{border:none;background:none;flex:1;padding:10px 0;font-size:15px;outline:none;min-width:0}
+.search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.fchip{padding:7px 14px;font-weight:600;font-size:13px}.fchip b{font-weight:700;opacity:.6;margin-left:2px}
+.fchip.on{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.plist{display:flex;flex-direction:column;gap:8px}
+.prow{display:grid;grid-template-columns:44px minmax(180px,1.4fr) 2fr 120px 20px;gap:16px;align-items:center;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:16px;padding:12px 16px;font-weight:400;cursor:pointer}
+.prow:hover{border-color:var(--c);box-shadow:0 2px 10px rgb(20 30 60 / .06)}
+.prow.off{opacity:.55}
+.pav{width:44px;height:44px;border-radius:50%;background:var(--cs);color:var(--c);display:grid;place-items:center;font-weight:700;font-size:14px}
+.pmain{display:flex;flex-direction:column;gap:5px;min-width:0}.pmain b{font-size:15px;overflow-wrap:anywhere}
+.pmeta{display:flex;gap:5px;flex-wrap:wrap}
+.pslots{display:flex;gap:6px;flex-wrap:wrap}
+.slot{font-size:12.5px;font-weight:600;background:var(--bg);border-radius:8px;padding:3px 9px;font-variant-numeric:tabular-nums}
+.pval{text-align:right;font-weight:700;font-variant-numeric:tabular-nums;display:flex;flex-direction:column}.pval small{font-weight:500;font-size:11.5px;color:var(--muted)}
+.chev{color:var(--muted)}
+.modal-bg{position:fixed;inset:0;background:rgb(10 15 30 / .45);z-index:40;animation:fade .15s ease-out}
+.modal{position:fixed;z-index:41;top:50%;left:50%;transform:translate(-50%,-50%);width:min(560px,calc(100vw - 32px));max-height:calc(100vh - 48px);display:flex;flex-direction:column;background:var(--surface);border-radius:24px;box-shadow:0 20px 60px rgb(10 15 30 / .3);animation:pop .18s ease-out}
+.mhead{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)}
+.mhead h2{margin:0;font-size:18px}
+.mhead .iconbtn{width:40px;height:40px;padding:0;display:grid;place-items:center;border-radius:12px}
+.mbody{padding:18px 22px;overflow-y:auto;display:flex;flex-direction:column;gap:18px}
+.mfoot{display:flex;gap:10px;justify-content:flex-end;padding:14px 22px;border-top:1px solid var(--line)}
+.mfoot .danger{margin-right:auto}
+.mfoot button{padding:10px 18px}
+.fl{display:flex;flex-direction:column;gap:7px;font-size:13.5px;font-weight:600;color:var(--ink);border:none;margin:0;padding:0}
+.fl legend{font-size:13.5px;font-weight:600;margin-bottom:8px;padding:0}
+.fl input[type=text],.slotrow select,.slotrow input{padding:12px 14px;font-size:16px;border-radius:12px;width:100%}
+.ferr{margin:-12px 0 0;color:var(--bad);font-size:13px;min-height:0}.ferr:empty{display:none}
+.tipos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tipo{position:relative;display:flex;flex-direction:column;gap:2px;padding:12px;border:2px solid var(--line);border-radius:14px;cursor:pointer;font-weight:400}
+.tipo input{position:absolute;opacity:0;pointer-events:none}
+.tipo b{font-size:13.5px}.tipo small{font-size:12px;color:var(--muted)}
+.tdot2{width:12px;height:12px;border-radius:50%;background:var(--c);margin-bottom:4px}
+.tipo.on{border-color:var(--c);background:var(--cs)}
+.tipo:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.money{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:0 14px;background:var(--surface);max-width:220px}
+.money span{color:var(--muted);font-weight:600}
+.money input{border:none;padding:12px 0;font-size:16px;width:100%;text-align:left;outline:none;background:none}
+.money:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.fl small.muted{font-weight:400;font-size:12.5px}
+.slots{display:flex;flex-direction:column;gap:8px}
+.slotrow{display:grid;grid-template-columns:1fr 130px 44px;gap:8px;align-items:center}
+.slotrow .iconbtn{width:44px;height:44px;padding:0;display:grid;place-items:center;border-radius:12px;color:var(--bad)}
+.addslot{border:2px dashed var(--line);background:none;border-radius:12px;padding:12px;font-weight:600;color:var(--accent);width:100%}
+.addslot:hover{border-color:var(--accent)}
+.switch-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;background:var(--bg);border-radius:14px}
+.switch-row span{display:flex;flex-direction:column;gap:2px}.switch-row small{font-size:12.5px}
+.switch-row input{width:22px;height:22px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--ink);color:var(--surface);padding:12px 20px;border-radius:99px;font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:.2s;z-index:60}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@keyframes pop{from{opacity:0;transform:translate(-50%,-46%)}to{opacity:1;transform:translate(-50%,-50%)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@media (max-width:1100px){.prow{grid-template-columns:44px 1fr auto 20px}.pslots{grid-column:2/4;grid-row:2}.pval{grid-row:1;grid-column:3}.chev{grid-row:1/3;grid-column:4}}
+@media (max-width:760px){
+  .big-add{padding:9px 14px}
+  .ptools{flex-direction:column;align-items:stretch}
+  .search{flex:none}
+  .chips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+  .fchip{white-space:nowrap}
+  .prow{grid-template-columns:40px 1fr auto;gap:10px;padding:12px}
+  .pav{width:40px;height:40px;font-size:13px}
+  .pslots{grid-column:1/4;grid-row:2;padding-left:50px}
+  .pval{grid-column:3;grid-row:1}.chev{display:none}
+  .modal{top:auto;bottom:0;left:0;transform:none;width:100%;max-height:92vh;border-radius:24px 24px 0 0;animation:up .22s ease-out}
+  .mbody{padding:16px}
+  .mfoot{padding:12px 16px calc(12px + env(safe-area-inset-bottom));flex-wrap:wrap}
+  .mfoot .primary{flex:1 1 100%;order:-1;padding:14px;font-size:16px}
+  .mfoot button:not(.primary){flex:1}
+  .mfoot .danger{margin-right:0}
+  .tipos{grid-template-columns:1fr}
+  .tipo{flex-direction:row;align-items:center;gap:10px}.tipo .tdot2{margin:0}.tipo small{margin-left:auto}
+  .money{max-width:none}
+  .slotrow{grid-template-columns:1fr 112px 44px}
+  .toast{bottom:calc(96px + env(safe-area-inset-bottom))}
+}
+body.modal-open{overflow:hidden}
 </style>
 </head>
 <body>
@@ -855,27 +941,77 @@ function vAgenda(){
   </div>`;
 }
 function vPacientes(){
-  const f=ui.filtro;
-  const list=S.patients.filter(p=>f==='todos'||p.tipo===f||(f==='confirmar'&&p.confirmar)).sort((a,b)=>(b.ativo-a.ativo)||a.tipo.localeCompare(b.tipo)||a.nome.localeCompare(b.nome));
+  const f=ui.filtro,q=(ui.busca||'').trim().toLowerCase();
+  const list=S.patients.filter(p=>(f==='todos'||p.tipo===f||(f==='inativos'&&!p.ativo)||(f==='confirmar'&&p.confirmar))&&(f==='inativos'||p.ativo||f==='todos')&&(!q||p.nome.toLowerCase().includes(q)))
+    .sort((a,b)=>(b.ativo-a.ativo)||a.nome.localeCompare(b.nome));
   const ativos=S.patients.filter(p=>p.ativo);const nconf=S.patients.filter(p=>p.confirmar).length;
-  return `<h1>Pacientes</h1>
-  <p class="sub">${ativos.length} ativos · ${ativos.filter(p=>p.slots.length).length} com horário fixo</p>
-  ${nconf?`<div class="alert" style="margin-bottom:16px"><span>${nconf} pacientes novos estão com tipo e valor a confirmar.</span><button data-a="filtro" data-f="confirmar">Ver quais</button></div>`:''}
-  <div class="row between" style="margin-bottom:12px">
-    <div class="row">${['todos','local','intercambio','particular'].map(t=>`<button data-a="filtro" data-f="${t}" class="${f===t?'primary':''}">${t==='todos'?'Todos':TIPOS[t]}</button>`).join('')}</div>
-    <button data-a="addp">+ Adicionar paciente</button>
+  const cnt=t=>S.patients.filter(p=>p.ativo&&(t==='todos'||p.tipo===t)).length;
+  return `<div class="row between" style="margin-bottom:4px"><h1 style="margin:0">Pacientes</h1><button class="primary big-add" data-a="novop"><span aria-hidden="true">＋</span> Novo paciente</button></div>
+  <p class="sub">${ativos.length} ${ativos.length===1?'paciente ativo':'pacientes ativos'}. Toque em um paciente para editar.</p>
+  ${nconf?`<div class="alert" style="margin-bottom:16px"><span>${nconf} paciente(s) com tipo e valor a confirmar.</span><button data-a="filtro" data-f="confirmar">Ver quais</button></div>`:''}
+  <div class="ptools">
+    <label class="search" for="p-busca"><svg viewBox="0 0 24 24" class="ic" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><input id="p-busca" data-busca type="search" placeholder="Buscar paciente" value="${esc(ui.busca||'')}" autocomplete="off"></label>
+    <div class="chips">${[['todos','Todos'],['local','Local'],['intercambio','Intercâmbio'],['particular','Particular'],['inativos','Inativos']].map(([t,l])=>`<button data-a="filtro" data-f="${t}" class="fchip ${f===t?'on':''}">${l}${t!=='inativos'?` <b>${cnt(t)}</b>`:''}</button>`).join('')}</div>
   </div>
-  <div class="card tw" style="padding:8px 12px"><table class="rt">
-    <thead><tr><th>Nome</th><th>Tipo</th><th class="num">Valor por sessão</th><th>Horários fixos</th><th>Ativo</th><th></th></tr></thead>
-    <tbody>${list.map(p=>`<tr>
-      <td><input id="pn-${p.id}" data-pf="nome" data-id="${p.id}" value="${esc(nm(p))}" aria-label="Nome" style="min-width:220px">${p.confirmar?'<br><span class="chip warn" style="margin-top:4px">tipo e valor a confirmar</span>':''}</td>
-      <td><select id="pt-${p.id}" data-pf="tipo" data-id="${p.id}" aria-label="Tipo">${Object.keys(TIPOS).map(t=>`<option value="${t}" ${p.tipo===t?'selected':''}>${TIPOS[t]}</option>`).join('')}</select></td>
-      <td class="num"><input id="pv-${p.id}" type="number" step="0.01" min="0" data-pf="valor" data-id="${p.id}" value="${p.valor}" aria-label="Valor"></td>
-      <td><div class="row" style="gap:6px">${p.slots.map((s,i)=>`<span class="chip neutral">${WD[s.d]} ${s.h} <button data-a="delslot" data-id="${p.id}" data-i="${i}" aria-label="Remover horário" style="border:none;background:none;padding:0 0 0 2px;font-size:12px">✕</button></span>`).join('')||'<span class="muted" style="font-size:13px">avulso</span>'}
-        <select id="sd-${p.id}" aria-label="Dia" style="padding:3px 6px">${[1,2,3,4,5,6].map(w=>`<option value="${w}">${WD[w]}</option>`).join('')}</select><input type="time" id="sh-${p.id}" value="08:30" aria-label="Horário" style="padding:3px 6px"><button data-a="addslot" data-id="${p.id}" style="padding:3px 10px">+</button></div></td>
-      <td><input type="checkbox" id="pa-${p.id}" data-pf="ativo" data-id="${p.id}" ${p.ativo?'checked':''} aria-label="Ativo"></td>
-      <td><button class="danger" data-a="delp" data-id="${p.id}" aria-label="Excluir ${esc(nm(p))}">Excluir</button></td>
-    </tr>`).join('')}</tbody></table></div>`;
+  ${list.length?`<div class="plist">${list.map(p=>{const[c,cs]=TCOL[p.tipo];return `<button class="prow ${p.ativo?'':'off'}" data-a="editp" data-id="${p.id}" style="--c:var(${c});--cs:var(${cs})">
+      <span class="pav" aria-hidden="true">${esc(initials(nm(p)))}</span>
+      <span class="pmain"><b>${esc(nm(p))}</b><span class="pmeta">${tchip(p.tipo)}${p.ativo?'':'<span class="chip neutral">inativo</span>'}${p.confirmar?'<span class="chip warn">a confirmar</span>':''}</span></span>
+      <span class="pslots">${p.slots.length?p.slots.map(s=>`<span class="slot">${WD[s.d]} ${s.h}</span>`).join(''):'<span class="muted" style="font-size:13px">sem horário fixo</span>'}</span>
+      <span class="pval">${fmt(p.valor)}<small>por sessão</small></span>
+      <svg viewBox="0 0 24 24" class="ic chev" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+    </button>`}).join('')}</div>`:`<div class="card empty">${S.patients.length?'Nenhum paciente encontrado.':'Nenhum paciente ainda. Toque em <b>Novo paciente</b> para cadastrar o primeiro.'}</div>`}`;
+}
+function vPform(){
+  const P=ui.pform;if(!P)return '';
+  const novo=!P.id;const vals={local:+S.config.valorLocal,intercambio:+S.config.valorInter};
+  const tipos=[['local','Unimed Local',fmt(vals.local)],['intercambio','Unimed Intercâmbio',fmt(vals.intercambio)],['particular','Particular','valor livre']];
+  return `<div class="modal-bg" data-a="pform-fechar"></div>
+  <form class="modal" id="f-pac" role="dialog" aria-modal="true" aria-labelledby="pf-tit" novalidate>
+    <div class="mhead"><button type="button" class="iconbtn" data-a="pform-fechar" aria-label="Fechar"><svg viewBox="0 0 24 24" class="ic"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <h2 id="pf-tit">${novo?'Novo paciente':'Editar paciente'}</h2><span style="width:40px"></span></div>
+    <div class="mbody">
+      <label class="fl" for="pf-nome">Nome do paciente
+        <input id="pf-nome" name="nome" type="text" value="${esc(P.nome)}" placeholder="Ex.: Ana Beatriz" autocomplete="off" required></label>
+      <p class="ferr" id="pf-err" role="alert">${esc(P.erro||'')}</p>
+      <fieldset class="fl"><legend>Tipo de atendimento</legend>
+        <div class="tipos">${tipos.map(([t,l,v])=>`<label class="tipo ${P.tipo===t?'on':''}" style="--c:var(${TCOL[t][0]});--cs:var(${TCOL[t][1]})"><input type="radio" name="tipo" value="${t}" ${P.tipo===t?'checked':''} data-pft><span class="tdot2"></span><b>${l}</b><small>${v}</small></label>`).join('')}</div>
+      </fieldset>
+      <label class="fl" for="pf-valor">Valor por sessão (seu repasse)
+        <span class="money"><span>R$</span><input id="pf-valor" name="valor" type="number" inputmode="decimal" step="0.01" min="0" value="${P.valor}"></span>
+        <small class="muted">${P.tipo==='particular'?'Para particular, use o valor da tabela da clínica já com os 70% (ex.: sessão ABA R$ 200 → R$ 140).':'Preenchido com o valor da Unimed. Só mude se este paciente tiver um valor diferente.'}</small></label>
+      <fieldset class="fl"><legend>Dias e horários fixos na semana</legend>
+        <small class="muted" style="margin:-2px 0 8px;display:block">Usados para montar a agenda automaticamente. Deixe vazio se o paciente vem de vez em quando.</small>
+        <div class="slots">${P.slots.map((s,i)=>`<div class="slotrow">
+          <select name="sd-${i}" aria-label="Dia da semana">${[1,2,3,4,5,6].map(w=>`<option value="${w}" ${s.d===w?'selected':''}>${WDL[w]}</option>`).join('')}</select>
+          <input name="sh-${i}" type="time" value="${s.h}" aria-label="Horário" step="300">
+          <button type="button" class="iconbtn" data-a="pf-delslot" data-i="${i}" aria-label="Remover horário"><svg viewBox="0 0 24 24" class="ic"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></svg></button></div>`).join('')}</div>
+        <button type="button" class="addslot" data-a="pf-addslot"><span aria-hidden="true">＋</span> Adicionar dia e horário</button>
+      </fieldset>
+      ${novo?'':`<label class="switch-row" for="pf-ativo"><span><b>Paciente ativo</b><small class="muted">Desative quando o paciente sair, sem perder o histórico.</small></span><input id="pf-ativo" name="ativo" type="checkbox" ${P.ativo?'checked':''}></label>`}
+    </div>
+    <div class="mfoot">
+      ${novo?'':`<button type="button" class="danger" data-a="pf-excluir">${P.confirmaExcluir?'Confirmar exclusão':'Excluir'}</button>`}
+      <button type="button" data-a="pform-fechar">Cancelar</button>
+      <button type="submit" class="primary">${novo?'Cadastrar paciente':'Salvar alterações'}</button>
+    </div>
+  </form>`;
+}
+function syncPform(){const F=document.getElementById('f-pac');if(!F||!ui.pform)return;const P=ui.pform;
+  P.nome=F.nome.value;if(P.nome.trim())P.erro='';P.valor=F.valor.value;const t=F.querySelector('input[name=tipo]:checked');if(t)P.tipo=t.value;
+  P.slots=P.slots.map((s,i)=>({d:+(F['sd-'+i]?F['sd-'+i].value:s.d),h:F['sh-'+i]?F['sh-'+i].value:s.h}));if(F.ativo)P.ativo=F.ativo.checked}
+function abrirPform(p){
+  if(PRIV){PRIV=false;try{localStorage.setItem('repasses-priv','0')}catch(e){}}
+  ui.pform=p?{id:p.id,nome:p.nome,tipo:p.tipo,valor:p.valor,slots:p.slots.map(s=>({...s})),ativo:p.ativo}:{id:null,nome:'',tipo:'local',valor:+S.config.valorLocal,slots:[],ativo:true};
+  render();setTimeout(()=>{const i=document.getElementById('pf-nome');if(i&&!p)i.focus()},60);
+}
+function salvarPform(){
+  syncPform();const P=ui.pform;const nome=P.nome.trim();
+  if(!nome){P.erro='Escreva o nome do paciente.';render();document.getElementById('pf-nome').focus();return}
+  const valor=Math.max(0,parseFloat(String(P.valor).replace(',','.'))||0);
+  const slots=P.slots.filter(s=>s.h).sort((a,b)=>a.d-b.d||a.h.localeCompare(b.h)).filter((s,i,a)=>!i||s.d!==a[i-1].d||s.h!==a[i-1].h);
+  if(P.id){const p=pat(P.id);Object.assign(p,{nome,tipo:P.tipo,valor,slots,ativo:P.ativo,ref:slots.length*4,confirmar:false})}
+  else S.patients.push({id:S.nextId++,nome,tipo:P.tipo,valor,slots,ativo:true,ref:slots.length*4});
+  ui.pform=null;ui.toast=P.id?'Paciente atualizado ✓':'Paciente cadastrado ✓';save();render();
 }
 function vFech(){
   const rows=[];
@@ -905,6 +1041,8 @@ function vAjustes(){
   const f=(k,l,step,suf)=>`<label for="cf-${k}"><span>${l}</span><span class="row" style="gap:6px"><input type="number" id="cf-${k}" data-cf="${k}" step="${step}" value="${c[k]}" ${CLINIC_KEYS.includes(k)&&!ADMIN?'disabled':''}>${suf?`<span class="muted">${suf}</span>`:''}</span></label>`;
   const per=[...S.periodos].map((p,i)=>({...p,i})).sort((a,b)=>a.ini.localeCompare(b.ini));
   return `<h1>Ajustes</h1>
+  <div class="card tema-card" style="margin-bottom:16px"><div class="row between"><div><h2 style="margin:0">Aparência</h2><p class="muted" style="margin:2px 0 0;font-size:13px">Vale para este aparelho.</p></div>
+    <div class="seg3" role="radiogroup" aria-label="Tema">${[['auto','Automático','<svg viewBox="0 0 24 24" class="ic"><circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>'],['claro','Claro','<svg viewBox="0 0 24 24" class="ic"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>'],['escuro','Escuro','<svg viewBox="0 0 24 24" class="ic"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>']].map(([k,l,i])=>`<button role="radio" aria-checked="${temaAtual()===k}" class="${temaAtual()===k?'on':''}" data-a="tema" data-t="${k}"><span aria-hidden="true">${i}</span> ${l}</button>`).join('')}</div></div></div>
   <p class="sub">As regras que o cálculo usa. Meta, custos e horários são seus; períodos, valores, faltas e tabela são da clínica.</p>
   ${ADMIN?'<div class="info" style="margin-bottom:16px">Você é administradora: mudanças nas regras da clínica valem para todas as psicólogas.</div>':'<div class="info" style="margin-bottom:16px">Regras da clínica (períodos da Unimed, valores, faltas e tabela) são definidas pela administração e aparecem bloqueadas.</div>'}
   <div class="card" style="margin-bottom:16px"><h2>Períodos da Unimed</h2>
@@ -1101,9 +1239,12 @@ document.addEventListener('mousemove',e=>{const t=e.target.closest&&e.target.clo
 /* ---------- render ---------- */
 const views={acessos:vAcessos,painel:vPainel,agenda:vAgenda,dashboard:vDashboard,faltas:vFaltas,pacientes:vPacientes,fechamentos:vFech,ajustes:vAjustes};
 const current=()=>{const h=location.hash.slice(1);return views[h]?h:'painel'};
+function temaAtual(){try{return localStorage.getItem('psizse-tema')||'auto'}catch(e){return 'auto'}}
+function aplicarTema(t){const r=document.documentElement;if(t==='claro')r.setAttribute('data-theme','light');else if(t==='escuro')r.setAttribute('data-theme','dark');else r.removeAttribute('data-theme');
+  const m=document.querySelector('meta[name=theme-color]');if(m)m.setAttribute('content',getComputedStyle(r).getPropertyValue('--bg').trim()||'#2c4f93')}
 function labelTables(){document.querySelectorAll('table.rt').forEach(t=>{const h=[...t.querySelectorAll('thead th')].map(x=>x.textContent.trim());t.querySelectorAll('tbody tr').forEach(tr=>[...tr.children].forEach((td,i)=>{if(h[i])td.setAttribute('data-label',h[i])}))})}
 function sheet(open){const s=document.getElementById('sheet'),b=document.getElementById('sheet-bg');if(!s)return;s.hidden=!open;b.hidden=!open;if(open){const f=s.querySelector('a:not([hidden]),button');if(f)f.focus()}}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')sheet(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){sheet(false);if(ui.pform){ui.pform=null;render()}}});
 function render(keepFocus){
   const v=current();const active=keepFocus&&document.activeElement&&document.activeElement.id;
   document.getElementById('view').innerHTML=views[v]();
@@ -1114,6 +1255,10 @@ function render(keepFocus){
   const ps=document.getElementById('privbtn-s');if(ps)ps.querySelector('span').textContent=PRIV?'Mostrar valores':'Ocultar valores';
   const pm=document.getElementById('privbtn-m');if(pm)pm.setAttribute('aria-pressed',PRIV);
   labelTables();
+  let mh=document.getElementById('pform-host');if(!mh){mh=document.createElement('div');mh.id='pform-host';document.body.appendChild(mh)}
+  mh.innerHTML=vPform();document.body.classList.toggle('modal-open',!!ui.pform);
+  if(ui.toast){let t=document.getElementById('toast');if(!t){t=document.createElement('div');t.id='toast';t.className='toast';t.setAttribute('role','status');document.body.appendChild(t)}
+    t.textContent=ui.toast;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2200);ui.toast=null}
   document.body.classList.toggle('priv',PRIV);const pb=document.getElementById('privbtn');if(pb){pb.innerHTML=PRIV?'<span aria-hidden="true">🙈</span> Mostrar valores':'<span aria-hidden="true">👁</span> Ocultar valores';pb.setAttribute('aria-pressed',PRIV)}
   if(active){const el=document.getElementById(active);if(el)el.focus()}
 }
@@ -1130,6 +1275,7 @@ document.addEventListener('click',e=>{
   else if(a==='sair'){sb.auth.signOut().then(()=>location.replace(location.pathname));return}
   else if(a==='aprovar'||a==='recusar'||a==='admin'||a==='usuario'){acessoAcao(a,b.dataset.id);return}
   else if(a==='recarregar-acessos'){ACESSOS=null;render();return}
+  else if(a==='tema'){const t=b.dataset.t;try{localStorage.setItem('psizse-tema',t)}catch(e){}aplicarTema(t);render();return}
   else if(a==='priv'){sheet(false);PRIV=!PRIV;try{localStorage.setItem('repasses-priv',PRIV?'1':'0')}catch(e){}}
   else if(a==='fw'){ui.fw=b.dataset.w}
   else if(a==='wk'){ui.daySel=addDays(mondayOf(ui.daySel),+b.dataset.d)}
@@ -1139,6 +1285,13 @@ document.addEventListener('click',e=>{
   else if(a==='allreal'){occurrences(b.dataset.ws,b.dataset.we).forEach(o=>{if(o.status==='pendente')S.status[o.key]='realizada'})}
   else if(a==='delav'){const id=+b.dataset.id;S.avulsas=S.avulsas.filter(x=>x.id!==id);delete S.status['a:'+id]}
   else if(a==='filtro'){ui.filtro=b.dataset.f}
+  else if(a==='novop'){abrirPform(null);return}
+  else if(a==='editp'){abrirPform(pat(+b.dataset.id));return}
+  else if(a==='pform-fechar'){ui.pform=null;render();return}
+  else if(a==='pf-addslot'){syncPform();const l=ui.pform.slots[ui.pform.slots.length-1];ui.pform.slots.push({d:l?Math.min(6,l.d+1):1,h:l?l.h:'08:30'});render();return}
+  else if(a==='pf-delslot'){syncPform();ui.pform.slots.splice(+b.dataset.i,1);render();return}
+  else if(a==='pf-excluir'){syncPform();if(!ui.pform.confirmaExcluir){ui.pform.confirmaExcluir=true;render();return}
+    const id=ui.pform.id;S.patients=S.patients.filter(p=>p.id!==id);S.avulsas=S.avulsas.filter(x=>x.pid!==id);ui.pform=null;ui.toast='Paciente excluído';save();render();return}
   else if(a==='addp'){S.patients.push({id:S.nextId++,nome:'Novo paciente',tipo:'local',valor:+S.config.valorLocal,ref:4,slots:[],ativo:true});ui.filtro='todos'}
   else if(a==='delp'){const id=+b.dataset.id;S.patients=S.patients.filter(p=>p.id!==id);S.avulsas=S.avulsas.filter(x=>x.pid!==id)}
   else if(a==='addslot'){const p=pat(+b.dataset.id);const d=+document.getElementById('sd-'+p.id).value,h=document.getElementById('sh-'+p.id).value;if(h&&!p.slots.some(s=>s.d===d&&s.h===h)){p.slots.push({d,h});p.slots.sort((x,y)=>x.d-y.d||x.h.localeCompare(y.h));p.ref=p.slots.length*4}}
@@ -1149,8 +1302,10 @@ document.addEventListener('click',e=>{
   else if(a==='aplicavalores'){S.patients.forEach(p=>{if(p.tipo==='local')p.valor=+S.config.valorLocal;if(p.tipo==='intercambio')p.valor=+S.config.valorInter});b.textContent='Valores aplicados';save();return}
   save();render();
 });
+document.addEventListener('input',e=>{const t=e.target;if(t.id==='pf-nome'&&t.value.trim()){const er=document.getElementById('pf-err');if(er)er.textContent='';if(ui.pform)ui.pform.erro=''}if(t.dataset&&t.dataset.busca!==undefined){ui.busca=t.value;const pos=t.selectionStart;render();const n=document.getElementById('p-busca');if(n){n.focus();try{n.setSelectionRange(pos,pos)}catch(x){}}}});
 document.addEventListener('change',e=>{
-  const t=e.target;if(PRIV&&t.closest('main')){render();return}
+  const t=e.target;
+  if(t.closest&&t.closest('#f-pac')){if(t.dataset.pft!==undefined){syncPform();const v={local:+S.config.valorLocal,intercambio:+S.config.valorInter};if(v[t.value])ui.pform.valor=v[t.value];render()}return}if(PRIV&&t.closest('main')&&t.dataset.busca===undefined){render();return}
   if(t.dataset.pf){const p=pat(+t.dataset.id);if(!p)return;const f=t.dataset.pf;
     if(f==='nome')p.nome=t.value.trim()||p.nome;
     else if(f==='tipo'){p.tipo=t.value;p.confirmar=false;if(t.value==='local')p.valor=+S.config.valorLocal;if(t.value==='intercambio')p.valor=+S.config.valorInter}
@@ -1163,6 +1318,7 @@ document.addEventListener('change',e=>{
   else if(t.dataset.per!==undefined){const p=S.periodos[+t.dataset.per];if(p&&t.value){p[t.dataset.pk]=t.value;save();render(true)}}
   else if(t.dataset.cf){S.config[t.dataset.cf]=t.type==='date'?t.value:(parseFloat(t.value)||0);save();render(true)}
 });
+document.addEventListener('submit',e=>{if(e.target.id==='f-pac'){e.preventDefault();salvarPform()}});
 document.addEventListener('submit',async e=>{
   const id=e.target.id;if(!['f-login','f-cadastro','f-esqueci','f-novasenha'].includes(id))return;e.preventDefault();
   const btn=e.target.querySelector('button[type=submit]');const old=btn.textContent;btn.disabled=true;btn.textContent='Aguarde…';
